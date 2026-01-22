@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import ProductCard from './ProductCard';
 
 const categories = [
@@ -30,7 +30,7 @@ const mockProducts = [
   { name: 'TRACK PANTS BLACK', price: '$99.00' },
 ];
 
-const NewArrivals: React.FC = () => {
+const NewArrivals: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('VIEW ALL');
 
   return (

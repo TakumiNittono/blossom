@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 interface ProductCardProps {
   name: string;
@@ -7,7 +7,7 @@ interface ProductCardProps {
   isNew?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ name, price, imageUrl, isNew = true }) => {
+const ProductCard: FC<ProductCardProps> = ({ name, price, imageUrl, isNew = true }) => {
   return (
     <div className="group relative">
       {/* Product Image */}

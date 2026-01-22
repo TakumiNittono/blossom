@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-const HeroSection: React.FC = () => {
+const HeroSection: FC = () => {
   return (
     <section className="relative w-full h-[600px] md:h-[800px] bg-gray-900 overflow-hidden">
       {/* Hero Image */}
