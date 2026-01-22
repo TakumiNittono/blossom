@@ -1,6 +1,15 @@
 import { FC } from 'react';
 
 const HeroSection: FC = () => {
+  const handleShopNow = () => {
+    const newArrivalsSection = document.getElementById('new-arrivals');
+    if (newArrivalsSection) {
+      newArrivalsSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert('LAST RESORTコレクションを表示します');
+    }
+  };
+
   return (
     <section className="relative w-full h-[600px] md:h-[800px] bg-gray-900 overflow-hidden">
       {/* Hero Image */}
@@ -23,7 +32,10 @@ const HeroSection: FC = () => {
           </div>
 
           {/* Right Button */}
-          <button className="bg-white text-black px-8 py-3 border-2 border-black font-semibold hover:bg-gray-100 transition-colors">
+          <button 
+            onClick={handleShopNow}
+            className="bg-white text-black px-8 py-3 border-2 border-black font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
+          >
             SHOP NOW
           </button>
         </div>
