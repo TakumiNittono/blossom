@@ -1,45 +1,29 @@
 import { FC } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 
 const Header: FC = () => {
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, page: string) => {
-    e.preventDefault();
-    alert(`${page}ページを表示します`);
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { cartCount } = useApp();
 
   const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleWishlistClick = () => {
-    alert('ウィッシュリストを表示します');
-  };
-
-  const handleAccountClick = () => {
-    alert('アカウントページを表示します');
-  };
-
-  const handleSearchClick = () => {
-    const query = prompt('検索キーワードを入力してください:');
-    if (query) {
-      alert(`"${query}" で検索します`);
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
     }
-  };
-
-  const handleCartClick = () => {
-    alert('カートを表示します');
   };
 
   const handleCategoryClick = (e: React.MouseEvent<HTMLAnchorElement>, category: string) => {
     e.preventDefault();
-    const newArrivalsSection = document.getElementById('new-arrivals');
-    if (newArrivalsSection) {
-      newArrivalsSection.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        alert(`${category}カテゴリの商品を表示します`);
-      }, 500);
+    if (location.pathname === '/') {
+      const newArrivalsSection = document.getElementById('new-arrivals');
+      if (newArrivalsSection) {
+        newArrivalsSection.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
-      alert(`${category}カテゴリの商品を表示します`);
+      navigate(`/category/${category.toLowerCase()}`);
     }
   };
 
@@ -56,11 +40,11 @@ const Header: FC = () => {
           <div className="flex items-center justify-between h-16">
             {/* Left Navigation */}
             <nav className="hidden md:flex space-x-6 text-sm font-medium">
-              <a href="#" onClick={(e) => handleNavClick(e, 'SHOP')} className="hover:text-gray-600 cursor-pointer">SHOP</a>
-              <a href="#" onClick={(e) => handleNavClick(e, 'PRIVATE SALES')} className="hover:text-gray-600 cursor-pointer">PRIVATE SALES</a>
-              <a href="#" onClick={(e) => handleNavClick(e, 'COLLECTIONS')} className="hover:text-gray-600 cursor-pointer">COLLECTIONS</a>
-              <a href="#" onClick={(e) => handleNavClick(e, 'STORES')} className="hover:text-gray-600 cursor-pointer">STORES</a>
-              <a href="#" onClick={(e) => handleNavClick(e, 'FAQS')} className="hover:text-gray-600 cursor-pointer">FAQS</a>
+              <Link to="/shop" className="hover:text-gray-600">SHOP</Link>
+              <Link to="/shop" className="hover:text-gray-600">PRIVATE SALES</Link>
+              <Link to="/collections" className="hover:text-gray-600">COLLECTIONS</Link>
+              <Link to="/stores" className="hover:text-gray-600">STORES</Link>
+              <Link to="/faqs" className="hover:text-gray-600">FAQS</Link>
             </nav>
 
             {/* Logo */}
@@ -70,28 +54,33 @@ const Header: FC = () => {
 
             {/* Right Navigation */}
             <div className="hidden md:flex items-center space-x-6 text-sm">
-              <a href="#" onClick={(e) => handleNavClick(e, 'COLD TOUR')} className="hover:text-gray-600 cursor-pointer">COLD TOUR</a>
-              <a href="#" onClick={(e) => handleNavClick(e, 'COUNTRY')} className="hover:text-gray-600 cursor-pointer">COUNTRY</a>
-              <button onClick={handleWishlistClick} className="hover:text-gray-600 cursor-pointer">
+              <Link to="/shop" className="hover:text-gray-600">COLD TOUR</Link>
+              <Link to="/shop" className="hover:text-gray-600">COUNTRY</Link>
+              <Link to="/wishlist" className="hover:text-gray-600 cursor-pointer">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                 </svg>
-              </button>
-              <button onClick={handleAccountClick} className="hover:text-gray-600 cursor-pointer">
+              </Link>
+              <Link to="/account" className="hover:text-gray-600 cursor-pointer">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-              </button>
-              <button onClick={handleSearchClick} className="hover:text-gray-600 cursor-pointer">
+              </Link>
+              <button onClick={() => navigate('/search')} className="hover:text-gray-600 cursor-pointer">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
-              <button onClick={handleCartClick} className="hover:text-gray-600 cursor-pointer">
+              <Link to="/cart" className="hover:text-gray-600 cursor-pointer relative">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
-              </button>
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
             </div>
           </div>
         </div>
@@ -102,8 +91,8 @@ const Header: FC = () => {
             <nav className="flex items-center space-x-6 py-3 text-sm overflow-x-auto">
               <a href="#" onClick={(e) => handleCategoryClick(e, 'LAST RESORT')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">LAST RESORT <span className="text-red-600">NEW</span></a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'NEW ARRIVALS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">NEW ARRIVALS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'BEST SELLERS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">BEST SELLERS</a>
-              <a href="#" onClick={(e) => handleNavClick(e, 'PRIVATE SALES')} className="whitespace-nowrap text-red-600 font-semibold cursor-pointer">PRIVATE SALES</a>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">BEST SELLERS</Link>
+              <Link to="/shop" className="whitespace-nowrap text-red-600 font-semibold">PRIVATE SALES</Link>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'HOODIES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">HOODIES</a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'ZIPS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">ZIPS</a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'KNITWEAR')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">KNITWEAR</a>
@@ -111,15 +100,15 @@ const Header: FC = () => {
               <a href="#" onClick={(e) => handleCategoryClick(e, 'PANTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">PANTS</a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'LONGSLEEVE')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">LONGSLEEVE</a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'TEES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">TEES</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'CREWNECKS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">CREWNECKS</a>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">CREWNECKS</Link>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'SWEATPANTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">SWEATPANTS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'BAGS | CARDHOLDERS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">BAGS | CARDHOLDERS <span className="text-red-600">NEW</span></a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'SNEAKERS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">SNEAKERS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'ACCESSORIES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">ACCESSORIES</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'POLOS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">POLOS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'SHIRTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">SHIRTS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'PARFUM')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">PARFUM</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'BEANI')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">BEANI</a>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">BAGS | CARDHOLDERS <span className="text-red-600">NEW</span></Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">SNEAKERS</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">ACCESSORIES</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">POLOS</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">SHIRTS</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">PARFUM</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">BEANI</Link>
             </nav>
           </div>
         </div>

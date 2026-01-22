@@ -1,28 +1,38 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: string;
   imageUrl?: string;
   isNew?: boolean;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ name, price, imageUrl, isNew = true }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+const ProductCard: FC<ProductCardProps> = ({ id, name, price, imageUrl, isNew = true }) => {
+  const navigate = useNavigate();
+  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useApp();
+  const wishlisted = isInWishlist(id);
 
   const handleProductClick = () => {
-    alert(`商品詳細: ${name}\n価格: ${price}`);
+    navigate(`/product/${id}`);
   };
 
   const handleWishlistClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsWishlisted(!isWishlisted);
-    alert(isWishlisted ? 'ウィッシュリストから削除しました' : 'ウィッシュリストに追加しました');
+    const product = { id, name, price, imageUrl, category: '' };
+    if (wishlisted) {
+      removeFromWishlist(id);
+    } else {
+      addToWishlist(product);
+    }
   };
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
-    alert(`${name} をカートに追加しました`);
+    const product = { id, name, price, imageUrl, category: '' };
+    addToCart(product);
   };
 
   return (
@@ -47,11 +57,11 @@ const ProductCard: FC<ProductCardProps> = ({ name, price, imageUrl, isNew = true
         {/* Wishlist Icon */}
         <button 
           onClick={handleWishlistClick}
-          className={`absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity ${isWishlisted ? 'opacity-100' : ''}`}
+          className={`absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity ${wishlisted ? 'opacity-100' : ''}`}
         >
           <svg 
-            className={`w-5 h-5 ${isWishlisted ? 'fill-yellow-400 text-yellow-400' : 'text-black'}`} 
-            fill={isWishlisted ? 'currentColor' : 'none'} 
+            className={`w-5 h-5 ${wishlisted ? 'fill-yellow-400 text-yellow-400' : 'text-black'}`} 
+            fill={wishlisted ? 'currentColor' : 'none'} 
             stroke="currentColor" 
             viewBox="0 0 24 24"
           >

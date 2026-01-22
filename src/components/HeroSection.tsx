@@ -1,12 +1,18 @@
 import { FC } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const HeroSection: FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleShopNow = () => {
-    const newArrivalsSection = document.getElementById('new-arrivals');
-    if (newArrivalsSection) {
-      newArrivalsSection.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname === '/') {
+      const newArrivalsSection = document.getElementById('new-arrivals');
+      if (newArrivalsSection) {
+        newArrivalsSection.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
-      alert('LAST RESORTコレクションを表示します');
+      navigate('/#new-arrivals');
     }
   };
 
