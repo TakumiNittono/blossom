@@ -49,7 +49,7 @@ const Header: FC = () => {
 
             {/* Logo */}
             <div className="flex-1 flex justify-center">
-              <h1 onClick={handleLogoClick} className="text-2xl font-bold cursor-pointer hover:opacity-70 transition-opacity">blossom</h1>
+              <h1 onClick={handleLogoClick} className="text-2xl font-bold cursor-pointer hover:opacity-70 brand-transition uppercase tracking-tight">BLOSSOM</h1>
             </div>
 
             {/* Right Navigation */}
@@ -90,28 +90,28 @@ const Header: FC = () => {
 
         {/* Category Navigation */}
         <div className="border-t border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="flex items-center space-x-6 py-3 text-sm overflow-x-auto">
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'LAST RESORT')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">LAST RESORT <span className="text-red-600">NEW</span></a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'NEW ARRIVALS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">NEW ARRIVALS</a>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">BEST SELLERS</Link>
-              <Link to="/shop" className="whitespace-nowrap text-red-600 font-semibold">PRIVATE SALES</Link>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'HOODIES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">HOODIES</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'ZIPS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">ZIPS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'KNITWEAR')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">KNITWEAR</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'OUTERWEAR')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">OUTERWEAR</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'PANTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">PANTS</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'LONGSLEEVE')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">LONGSLEEVE</a>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'TEES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">TEES</a>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">CREWNECKS</Link>
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'SWEATPANTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer">SWEATPANTS</a>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">BAGS | CARDHOLDERS <span className="text-red-600">NEW</span></Link>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">SNEAKERS</Link>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">ACCESSORIES</Link>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">POLOS</Link>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">SHIRTS</Link>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">PARFUM</Link>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600">BEANI</Link>
+          <div className="w-full overflow-x-auto">
+            <nav className="flex items-center space-x-4 md:space-x-6 py-3 px-4 sm:px-6 lg:px-8 text-xs md:text-sm min-w-max">
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'LAST RESORT')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">LAST RESORT <span className="text-red-600">NEW</span></a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'NEW ARRIVALS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">NEW ARRIVALS</a>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">BEST SELLERS</Link>
+              <Link to="/shop" className="whitespace-nowrap text-red-600 font-semibold uppercase tracking-wide">PRIVATE SALES</Link>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'HOODIES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">HOODIES</a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'ZIPS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">ZIPS</a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'KNITWEAR')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">KNITWEAR</a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'OUTERWEAR')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">OUTERWEAR</a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'PANTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">PANTS</a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'LONGSLEEVE')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">LONGSLEEVE</a>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'TEES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">TEES</a>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">CREWNECKS</Link>
+              <a href="#" onClick={(e) => handleCategoryClick(e, 'SWEATPANTS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">SWEATPANTS</a>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">BAGS | CARDHOLDERS <span className="text-red-600">NEW</span></Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">SNEAKERS</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">ACCESSORIES</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">POLOS</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">SHIRTS</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">PARFUM</Link>
+              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">BEANI</Link>
             </nav>
           </div>
         </div>
