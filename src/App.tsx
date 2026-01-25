@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
 import LandingGate from './components/LandingGate';
 import IntroPopup from './components/IntroPopup';
 import GlobalLoader from './components/GlobalLoader';
 import CartDrawer from './components/CartDrawer';
+import PageTransition from './components/PageTransition';
 import Header from './components/Header';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
@@ -19,47 +20,51 @@ import FAQs from './pages/FAQs';
 import Account from './pages/Account';
 
 const AppContent = () => {
-  const location = useLocation();
   const { isLoading } = useApp();
   const [showIntroPopup, setShowIntroPopup] = useState(false);
-  const [hasCheckedIntro, setHasCheckedIntro] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check if should show intro popup after landing gate
-    if (location.pathname === '/shop' && !hasCheckedIntro) {
-      const visited = localStorage.getItem('blossom_visited');
-      const emailCaptured = localStorage.getItem('blossom_email_captured');
-      
-      if (visited === 'true' && !emailCaptured) {
-        setTimeout(() => {
-          setShowIntroPopup(true);
-        }, 500);
-      }
-      setHasCheckedIntro(true);
+  const handleLandingGateShopHere = () => {
+    const emailCaptured = localStorage.getItem('blossom_email_captured');
+    if (!emailCaptured) {
+      // Show intro popup first
+      setTimeout(() => {
+        setShowIntroPopup(true);
+      }, 300);
+    } else {
+      // Go directly to shop
+      navigate('/shop');
     }
-  }, [location.pathname, hasCheckedIntro]);
+  };
+
+  const handleIntroPopupClose = () => {
+    setShowIntroPopup(false);
+    navigate('/shop');
+  };
 
   return (
     <div className="min-h-screen bg-white">
-      <LandingGate />
-      <IntroPopup isOpen={showIntroPopup} onClose={() => setShowIntroPopup(false)} />
+      <LandingGate onShopHere={handleLandingGateShopHere} />
+      <IntroPopup isOpen={showIntroPopup} onClose={handleIntroPopupClose} />
       <GlobalLoader isLoading={isLoading} />
       <CartDrawer />
       
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/category/:category" element={<Category />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/collections" element={<Collections />} />
-        <Route path="/stores" element={<Stores />} />
-        <Route path="/faqs" element={<FAQs />} />
-        <Route path="/account" element={<Account />} />
-      </Routes>
+      <PageTransition>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/category/:category" element={<Category />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/collections" element={<Collections />} />
+          <Route path="/stores" element={<Stores />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/account" element={<Account />} />
+        </Routes>
+      </PageTransition>
       
       {/* Chat Icon */}
       <div className="fixed bottom-6 right-6 z-50">

@@ -6,9 +6,10 @@ interface ProductCardProps {
   product: Product;
   isHovered?: boolean;
   onHover?: (productId: string | null) => void;
+  dimOthers?: boolean;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover }) => {
+const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover, dimOthers = false }) => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -30,13 +31,19 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
   }, [isHovered, product.images.length]);
 
   const handleClick = () => {
+    // Save scroll position before navigation
+    sessionStorage.setItem('shopScrollPosition', window.scrollY.toString());
     navigate(`/product/${product.id}`);
   };
 
   return (
     <div
       className={`group relative cursor-pointer brand-transition ${
-        isHovered ? 'scale-[1.03] z-10' : 'scale-100 opacity-100'
+        isHovered 
+          ? 'scale-[1.03] z-10' 
+          : dimOthers 
+          ? 'opacity-40 scale-100' 
+          : 'scale-100 opacity-100'
       }`}
       onMouseEnter={() => onHover?.(product.id)}
       onMouseLeave={() => onHover?.(null)}
@@ -48,6 +55,8 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
           <img
             key={index}
             src={imageUrl}
+            srcSet={`${imageUrl} 1x, ${imageUrl} 2x`}
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             alt={`${product.name} ${index + 1}`}
             className={`absolute inset-0 w-full h-full object-cover brand-transition ${
               index === currentImageIndex

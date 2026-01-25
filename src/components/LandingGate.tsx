@@ -1,9 +1,11 @@
 import { FC, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const LandingGate: FC = () => {
+interface LandingGateProps {
+  onShopHere: () => void;
+}
+
+const LandingGate: FC<LandingGateProps> = ({ onShopHere }) => {
   const [showGate, setShowGate] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const visited = localStorage.getItem('blossom_visited');
@@ -15,8 +17,7 @@ const LandingGate: FC = () => {
   const handleShopHere = () => {
     localStorage.setItem('blossom_visited', 'true');
     setShowGate(false);
-    // IntroPopup will be handled by App.tsx
-    navigate('/shop');
+    onShopHere();
   };
 
   if (!showGate) return null;

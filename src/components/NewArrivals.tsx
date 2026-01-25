@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
 import { mockProducts } from '../data/products';
@@ -29,8 +29,21 @@ const NewArrivals: FC = () => {
     : mockProducts.filter(product => product.category === selectedCategory);
 
   const handleViewAll = () => {
+    // Save scroll position
+    sessionStorage.setItem('shopScrollPosition', window.scrollY.toString());
     navigate('/shop');
   };
+
+  useEffect(() => {
+    // Restore scroll position when component mounts
+    const savedPosition = sessionStorage.getItem('newArrivalsScrollPosition');
+    if (savedPosition && window.location.hash === '#new-arrivals') {
+      setTimeout(() => {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+        sessionStorage.removeItem('newArrivalsScrollPosition');
+      }, 100);
+    }
+  }, []);
 
   return (
     <section id="new-arrivals" className="py-12 md:py-16">

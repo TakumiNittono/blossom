@@ -8,8 +8,12 @@ import SizeGuide from '../components/SizeGuide';
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { addToCart, openCart } = useApp();
+  const { addToCart, openCart, setLoading } = useApp();
   const [selectedSize, setSelectedSize] = useState<string>('');
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const product = mockProducts.find((p) => p.id === id);
 
@@ -35,21 +39,36 @@ const ProductDetail = () => {
       return;
     }
 
+    setLoading(true);
     addToCart({
       ...product,
       selectedSize: selectedSize,
     });
-    openCart();
+    setTimeout(() => {
+      setLoading(false);
+      openCart();
+    }, 300);
   };
 
   return (
     <div className="min-h-screen">
+      {/* Back Button */}
+      <button
+        onClick={handleBack}
+        className="fixed top-20 left-4 md:left-8 z-10 bg-white/80 backdrop-blur-sm px-4 py-2 uppercase text-sm tracking-wide hover:opacity-70 brand-transition"
+      >
+        ← BACK
+      </button>
+
       {/* Hero Image */}
-      <div className="w-full aspect-square md:aspect-[4/5] bg-gray-100">
+      <div className="w-full aspect-square md:aspect-[4/5] bg-gray-100 relative overflow-hidden">
         <img
           src={product.images[0]}
+          srcSet={`${product.images[0]} 1x, ${product.images[0]} 2x`}
+          sizes="100vw"
           alt={product.name}
           className="w-full h-full object-cover"
+          loading="eager"
         />
       </div>
 

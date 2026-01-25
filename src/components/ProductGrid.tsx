@@ -1,4 +1,4 @@
-import { FC, useState, useRef, useEffect } from 'react';
+import { FC, useState } from 'react';
 import ProductCard from './ProductCard';
 import { mockProducts, Product } from '../data/products';
 
@@ -8,37 +8,59 @@ interface ProductGridProps {
 
 const ProductGrid: FC<ProductGridProps> = ({ products = mockProducts }) => {
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
 
-  // Mobile: Enable horizontal swipe per row
-  useEffect(() => {
-    if (!gridRef.current) return;
-    // Touch events are handled by CSS scroll-snap
-  }, []);
+  // Group products into rows for mobile horizontal swipe
+  const rows: Product[][] = [];
+  for (let i = 0; i < products.length; i += 2) {
+    rows.push(products.slice(i, i + 2));
+  }
 
   return (
-    <div
-      ref={gridRef}
-      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 px-4 md:px-8 py-12"
-      style={{
-        scrollSnapType: 'x mandatory',
-      }}
-    >
-      {products.map((product) => (
-        <div
-          key={product.id}
-          className="scroll-snap-start"
-          style={{
-            scrollSnapAlign: 'start',
-          }}
-        >
+    <div className="space-y-4 md:space-y-8">
+      {/* Mobile: Horizontal swipe rows - 2 columns per row */}
+      <div className="md:hidden space-y-4">
+        {rows.map((row, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="flex gap-4 overflow-x-auto scroll-smooth px-4 hide-scrollbar"
+            style={{
+              scrollSnapType: 'x mandatory',
+              WebkitOverflowScrolling: 'touch',
+            }}
+          >
+            {row.map((product) => (
+              <div
+                key={product.id}
+                className="flex-shrink-0 w-[calc(50%-0.5rem)]"
+                style={{
+                  scrollSnapAlign: 'start',
+                }}
+              >
+                <ProductCard
+                  product={product}
+                  isHovered={false}
+                  onHover={() => {}}
+                />
+              </div>
+            ))}
+            {/* Add extra space for swipe */}
+            <div className="flex-shrink-0 w-4" />
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: Grid with hover effects */}
+      <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 gap-8 px-4 md:px-8">
+        {products.map((product) => (
           <ProductCard
+            key={product.id}
             product={product}
             isHovered={hoveredProductId === product.id}
             onHover={setHoveredProductId}
+            dimOthers={hoveredProductId !== null && hoveredProductId !== product.id}
           />
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
