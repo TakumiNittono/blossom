@@ -1,27 +1,29 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { Product } from '../data/products';
 
-interface Product {
-  id: string;
-  name: string;
-  price: string;
-  imageUrl?: string;
-  category: string;
+interface ProductWithSize extends Product {
+  selectedSize: string;
 }
 
-interface CartItem extends Product {
+interface CartItem extends ProductWithSize {
   quantity: number;
 }
 
 interface AppContextType {
   cart: CartItem[];
   wishlist: Product[];
-  addToCart: (product: Product) => void;
-  removeFromCart: (productId: string) => void;
-  updateCartQuantity: (productId: string, quantity: number) => void;
+  cartOpen: boolean;
+  isLoading: boolean;
+  addToCart: (product: ProductWithSize) => void;
+  removeFromCart: (productId: string, size?: string) => void;
+  updateCartQuantity: (productId: string, size: string, quantity: number) => void;
   addToWishlist: (product: Product) => void;
   removeFromWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
   cartCount: number;
+  openCart: () => void;
+  closeCart: () => void;
+  setLoading: (loading: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -29,33 +31,48 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [wishlist, setWishlist] = useState<Product[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const addToCart = (product: Product) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
+  const addToCart = (product: ProductWithSize) => {
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      setCart((prevCart) => {
+        const existingItem = prevCart.find(
+          (item) => item.id === product.id && item.selectedSize === product.selectedSize
         );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
+        if (existingItem) {
+          return prevCart.map((item) =>
+            item.id === product.id && item.selectedSize === product.selectedSize
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        }
+        return [...prevCart, { ...product, quantity: 1 }];
+      });
+      setIsLoading(false);
+    }, 300);
   };
 
-  const removeFromCart = (productId: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+  const removeFromCart = (productId: string, size?: string) => {
+    setCart((prevCart) =>
+      prevCart.filter(
+        (item) => !(item.id === productId && (!size || item.selectedSize === size))
+      )
+    );
   };
 
-  const updateCartQuantity = (productId: string, quantity: number) => {
+  const updateCartQuantity = (productId: string, size: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, size);
       return;
     }
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
+        item.id === productId && item.selectedSize === size
+          ? { ...item, quantity }
+          : item
       )
     );
   };
@@ -84,6 +101,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       value={{
         cart,
         wishlist,
+        cartOpen,
+        isLoading,
         addToCart,
         removeFromCart,
         updateCartQuantity,
@@ -91,6 +110,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         removeFromWishlist,
         isInWishlist,
         cartCount,
+        openCart: () => setCartOpen(true),
+        closeCart: () => setCartOpen(false),
+        setLoading: setIsLoading,
       }}
     >
       {children}

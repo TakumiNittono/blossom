@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
+import ProductGrid from '../components/ProductGrid';
 import { mockProducts } from '../data/products';
 
 const Category = () => {
@@ -9,28 +9,17 @@ const Category = () => {
   );
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">
+    <div className="min-h-screen py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <h1 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 uppercase tracking-tight">
           {category?.toUpperCase()}
         </h1>
 
         {products.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                imageUrl={product.imageUrl}
-                isNew={true}
-              />
-            ))}
-          </div>
+          <ProductGrid products={products} />
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500">このカテゴリには商品がありません</p>
+            <p className="text-gray-500 uppercase tracking-wide">NO PRODUCTS IN THIS CATEGORY</p>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
+import ProductGrid from '../components/ProductGrid';
 import { mockProducts } from '../data/products';
 
 const Search = () => {
@@ -57,21 +57,10 @@ const Search = () => {
         )}
 
         {results.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-            {results.map((product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                imageUrl={product.imageUrl}
-                isNew={true}
-              />
-            ))}
-          </div>
+          <ProductGrid products={results} />
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500">検索結果が見つかりませんでした</p>
+            <p className="text-gray-500 uppercase tracking-wide">NO SEARCH RESULTS FOUND</p>
           </div>
         )}
       </div>

@@ -1,11 +1,15 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { mockProducts } from '../data/products';
+import Accordion from '../components/Accordion';
+import SizeGuide from '../components/SizeGuide';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { addToCart, addToWishlist, removeFromWishlist, isInWishlist } = useApp();
+  const { addToCart, openCart } = useApp();
+  const [selectedSize, setSelectedSize] = useState<string>('');
 
   const product = mockProducts.find((p) => p.id === id);
 
@@ -13,96 +17,110 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">商品が見つかりません</h1>
+          <h1 className="text-2xl font-bold mb-4">PRODUCT NOT FOUND</h1>
           <button
-            onClick={() => navigate('/')}
-            className="bg-black text-white px-6 py-2 hover:bg-gray-800"
+            onClick={() => navigate('/shop')}
+            className="border-b-2 border-black pb-1 uppercase tracking-wide"
           >
-            ホームに戻る
+            BACK TO SHOP
           </button>
         </div>
       </div>
     );
   }
 
-  const wishlisted = isInWishlist(product.id);
-
   const handleAddToCart = () => {
-    addToCart(product);
-    alert(`${product.name} をカートに追加しました`);
-  };
-
-  const handleWishlist = () => {
-    if (wishlisted) {
-      removeFromWishlist(product.id);
-      alert('ウィッシュリストから削除しました');
-    } else {
-      addToWishlist(product);
-      alert('ウィッシュリストに追加しました');
+    if (!selectedSize) {
+      alert('Please select a size');
+      return;
     }
+
+    addToCart({
+      ...product,
+      selectedSize: selectedSize,
+    });
+    openCart();
   };
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <button
-          onClick={() => navigate(-1)}
-          className="mb-8 text-gray-600 hover:text-black"
-        >
-          ← 戻る
-        </button>
+    <div className="min-h-screen">
+      {/* Hero Image */}
+      <div className="w-full aspect-square md:aspect-[4/5] bg-gray-100">
+        <img
+          src={product.images[0]}
+          alt={product.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div className="aspect-square bg-gray-200 overflow-hidden">
-            {product.imageUrl ? (
-              <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="text-gray-400">画像</span>
-              </div>
-            )}
-          </div>
+      {/* Product Info - Minimal */}
+      <div className="max-w-2xl mx-auto px-4 md:px-8 py-12 md:py-16">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 tracking-tight uppercase">
+          {product.name}
+        </h1>
+        <p className="text-xl md:text-2xl font-semibold mb-8">{product.price}</p>
 
-          {/* Product Info */}
-          <div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{product.name}</h1>
-            <p className="text-2xl font-semibold mb-6">{product.price}</p>
-            <p className="text-sm text-gray-600 mb-8">
-              カテゴリ: {product.category}
-            </p>
-
-            <div className="space-y-4 mb-8">
+        {/* Size Selector */}
+        <div className="mb-8">
+          <label className="block text-sm uppercase tracking-wide mb-4">SIZE</label>
+          <div className="grid grid-cols-6 gap-2">
+            {product.sizes.map((size) => (
               <button
-                onClick={handleAddToCart}
-                className="w-full bg-black text-white py-3 px-6 hover:bg-gray-800 transition-colors"
-              >
-                カートに追加
-              </button>
-              <button
-                onClick={handleWishlist}
-                className={`w-full border-2 py-3 px-6 transition-colors ${
-                  wishlisted
-                    ? 'border-yellow-400 text-yellow-400'
-                    : 'border-black hover:bg-gray-50'
+                key={size.size}
+                onClick={() => size.available && setSelectedSize(size.size)}
+                disabled={!size.available}
+                className={`py-3 px-2 border-2 uppercase text-sm tracking-wide brand-transition ${
+                  selectedSize === size.size
+                    ? 'border-black bg-black text-white'
+                    : size.available
+                    ? 'border-black hover:bg-gray-50'
+                    : 'border-gray-300 text-gray-400 cursor-not-allowed opacity-50'
                 }`}
               >
-                {wishlisted ? 'ウィッシュリストから削除' : 'ウィッシュリストに追加'}
+                {size.size}
               </button>
-            </div>
-
-            <div className="border-t pt-8">
-              <h2 className="text-xl font-bold mb-4">商品詳細</h2>
-              <p className="text-gray-600">
-                {product.name}は、blossomの最新コレクションから厳選されたアイテムです。
-                高品質な素材と洗練されたデザインで、日常使いから特別な日まで幅広くお楽しみいただけます。
-              </p>
-            </div>
+            ))}
           </div>
+        </div>
+
+        {/* Add to Cart */}
+        <button
+          onClick={handleAddToCart}
+          disabled={!selectedSize}
+          className="w-full bg-black text-white py-4 px-6 uppercase tracking-wider text-sm font-medium hover:bg-gray-800 brand-transition disabled:opacity-50 disabled:cursor-not-allowed mb-12"
+        >
+          ADD TO CART
+        </button>
+
+        {/* Accordion Sections */}
+        <div className="space-y-0">
+          <Accordion title="DETAILS">
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {product.name} is part of the BLOSSOM collection. Crafted with premium materials
+              and attention to detail, this piece embodies minimalist design and quality construction.
+            </p>
+          </Accordion>
+
+          <Accordion title="SIZING">
+            <SizeGuide />
+          </Accordion>
+
+          <Accordion title="DELIVERY">
+            <div className="text-sm text-gray-600 space-y-4">
+              <div>
+                <p className="font-medium mb-2">STANDARD SHIPPING</p>
+                <p>Free shipping on orders over $100. Estimated delivery: 3-5 business days.</p>
+              </div>
+              <div>
+                <p className="font-medium mb-2">EXPRESS SHIPPING</p>
+                <p>$15. Estimated delivery: 1-2 business days.</p>
+              </div>
+              <div>
+                <p className="font-medium mb-2">INTERNATIONAL</p>
+                <p>Shipping rates calculated at checkout. Duties and taxes included.</p>
+              </div>
+            </div>
+          </Accordion>
         </div>
       </div>
     </div>
