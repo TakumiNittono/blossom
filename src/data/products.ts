@@ -15,11 +15,11 @@ export interface Product {
 // 使用する画像のリスト
 const availableImages = ['/IMG_8907.JPG', '/IMG_8908.JPG', '/IMG_8909.JPG', '/IMG_8910.JPG'];
 
-// 画像を循環的に割り当てる関数
+// 各商品に同じ画像を2つ割り当てる関数（ホバー時も同じ画像を表示）
 const getImagesForProduct = (index: number): string[] => {
-  const image1 = availableImages[index % availableImages.length];
-  const image2 = availableImages[(index + 1) % availableImages.length];
-  return [image1, image2];
+  const image = availableImages[index % availableImages.length];
+  // 同じ画像を2つ返す（ホバー時も同じ画像を表示）
+  return [image, image];
 };
 
 export const mockProducts: Product[] = [
