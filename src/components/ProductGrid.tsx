@@ -28,6 +28,8 @@ const ProductGrid: FC<ProductGridProps> = ({ products = mockProducts }) => {
               WebkitOverflowScrolling: 'touch',
             }}
           >
+            {/* Left spacer for centering when 2 items */}
+            {row.length === 2 && <div className="flex-1" />}
             {row.map((product) => (
               <div
                 key={product.id}
@@ -43,8 +45,10 @@ const ProductGrid: FC<ProductGridProps> = ({ products = mockProducts }) => {
                 />
               </div>
             ))}
-            {/* Add extra space for swipe */}
-            <div className="flex-shrink-0 w-4" />
+            {/* Right spacer for centering when 2 items */}
+            {row.length === 2 && <div className="flex-1" />}
+            {/* Add extra space for swipe only if more than 2 items */}
+            {row.length > 2 && <div className="flex-shrink-0 w-4" />}
           </div>
         ))}
       </div>
