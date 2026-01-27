@@ -22,18 +22,22 @@ const ProductGrid: FC<ProductGridProps> = ({ products = mockProducts }) => {
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="flex gap-4 overflow-x-auto scroll-smooth px-4 hide-scrollbar"
+            className={`flex gap-4 overflow-x-auto scroll-smooth hide-scrollbar ${
+              row.length === 2 ? 'justify-center' : 'px-4'
+            }`}
             style={{
               scrollSnapType: 'x mandatory',
               WebkitOverflowScrolling: 'touch',
             }}
           >
-            {/* Left spacer for centering when 2 items */}
-            {row.length === 2 && <div className="flex-1" />}
+            {/* Left padding for centering when 2 items */}
+            {row.length === 2 && <div className="flex-shrink-0 w-4" />}
             {row.map((product) => (
               <div
                 key={product.id}
-                className="flex-shrink-0 w-[calc(50%-0.5rem)]"
+                className={`flex-shrink-0 ${
+                  row.length === 2 ? 'w-[calc(50vw-1.5rem)]' : 'w-[calc(50%-0.5rem)]'
+                }`}
                 style={{
                   scrollSnapAlign: 'start',
                 }}
@@ -45,8 +49,8 @@ const ProductGrid: FC<ProductGridProps> = ({ products = mockProducts }) => {
                 />
               </div>
             ))}
-            {/* Right spacer for centering when 2 items */}
-            {row.length === 2 && <div className="flex-1" />}
+            {/* Right padding for centering when 2 items */}
+            {row.length === 2 && <div className="flex-shrink-0 w-4" />}
             {/* Add extra space for swipe only if more than 2 items */}
             {row.length > 2 && <div className="flex-shrink-0 w-4" />}
           </div>
