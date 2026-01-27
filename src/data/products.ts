@@ -12,12 +12,22 @@ export interface Product {
   sizes: SizeVariant[];
 }
 
+// 使用する画像のリスト
+const availableImages = ['/IMG_8907.JPG', '/IMG_8908.JPG', '/IMG_8909.JPG', '/IMG_8910.JPG'];
+
+// 画像を循環的に割り当てる関数
+const getImagesForProduct = (index: number): string[] => {
+  const image1 = availableImages[index % availableImages.length];
+  const image2 = availableImages[(index + 1) % availableImages.length];
+  return [image1, image2];
+};
+
 export const mockProducts: Product[] = [
   {
     id: '1',
     name: 'STRIPED ZIP JACKET MAROON',
     price: '$169.00',
-    images: ['/IMG_8909.JPG', 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&h=800&fit=crop'],
+    images: getImagesForProduct(0),
     category: 'ZIPS',
     sizes: [
       { size: 'XS', available: true },
@@ -32,7 +42,7 @@ export const mockProducts: Product[] = [
     id: '2',
     name: 'GRAPHIC TEE BLACK',
     price: '$89.00',
-    images: ['/IMG_8907.JPG', 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop'],
+    images: getImagesForProduct(1),
     category: 'TEES',
     sizes: [
       { size: 'XS', available: true },
@@ -47,7 +57,7 @@ export const mockProducts: Product[] = [
     id: '3',
     name: 'ABSTRACT KNIT SWEATER',
     price: '$119.00',
-    images: ['/IMG_8910.JPG', 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&h=800&fit=crop'],
+    images: getImagesForProduct(2),
     category: 'KNITWEAR',
     sizes: [
       { size: 'XS', available: false },
@@ -62,10 +72,7 @@ export const mockProducts: Product[] = [
     id: '4',
     name: 'TOP BOY PANTS BLACK DENIM',
     price: '$119.00',
-    images: [
-      'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800&h=800&fit=crop',
-    ],
+    images: getImagesForProduct(3),
     category: 'PANTS',
     sizes: [
       { size: 'XS', available: true },
@@ -80,10 +87,7 @@ export const mockProducts: Product[] = [
     id: '5',
     name: 'DISTRESS CURVED HOODIE LIGHT GREY',
     price: '$109.00',
-    images: [
-      'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=800&h=800&fit=crop',
-    ],
+    images: getImagesForProduct(4),
     category: 'HOODIES',
     sizes: [
       { size: 'XS', available: true },
@@ -98,10 +102,7 @@ export const mockProducts: Product[] = [
     id: '6',
     name: 'FLUFFY FUR KNIT BLACK & RED',
     price: '$119.00',
-    images: [
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&h=800&fit=crop',
-    ],
+    images: getImagesForProduct(5),
     category: 'KNITWEAR',
     sizes: [
       { size: 'XS', available: true },
@@ -116,10 +117,7 @@ export const mockProducts: Product[] = [
     id: '7',
     name: 'SCRIPT STUDS HOODIE BLACK',
     price: '$129.00',
-    images: [
-      'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=800&h=800&fit=crop',
-    ],
+    images: getImagesForProduct(6),
     category: 'HOODIES',
     sizes: [
       { size: 'XS', available: true },
@@ -134,10 +132,7 @@ export const mockProducts: Product[] = [
     id: '8',
     name: 'HENLEY LONGSLEEVE GREY',
     price: '$89.00',
-    images: [
-      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&h=800&fit=crop',
-    ],
+    images: getImagesForProduct(7),
     category: 'LONGSLEEVE',
     sizes: [
       { size: 'XS', available: false },
@@ -152,10 +147,7 @@ export const mockProducts: Product[] = [
     id: '9',
     name: 'TRACK PANTS BLACK',
     price: '$99.00',
-    images: [
-      'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=800&h=800&fit=crop',
-    ],
+    images: getImagesForProduct(8),
     category: 'SWEATPANTS',
     sizes: [
       { size: 'XS', available: true },
