@@ -22,9 +22,11 @@ import Account from './pages/Account';
 const AppContent = () => {
   const { isLoading } = useApp();
   const [showIntroPopup, setShowIntroPopup] = useState(false);
+  const [showLandingGate, setShowLandingGate] = useState(true);
   const navigate = useNavigate();
 
   const handleLandingGateShopHere = () => {
+    setShowLandingGate(false);
     const emailCaptured = localStorage.getItem('blossom_email_captured');
     if (!emailCaptured) {
       // Show intro popup first
@@ -44,7 +46,7 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <LandingGate onShopHere={handleLandingGateShopHere} />
+      {showLandingGate && <LandingGate onShopHere={handleLandingGateShopHere} />}
       <IntroPopup isOpen={showIntroPopup} onClose={handleIntroPopupClose} />
       <GlobalLoader isLoading={isLoading} />
       <CartDrawer />

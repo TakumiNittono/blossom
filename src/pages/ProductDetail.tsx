@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { mockProducts } from '../data/products';
@@ -10,6 +10,34 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { addToCart, openCart, setLoading } = useApp();
   const [selectedSize, setSelectedSize] = useState<string>('');
+
+  // ページマウント時にトップにスクロール（モバイル対応）
+  useEffect(() => {
+    // 即座にトップにスクロール
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    // 即座に実行
+    scrollToTop();
+
+    // requestAnimationFrameを使用してDOMレンダリング後に確実にスクロール
+    requestAnimationFrame(() => {
+      scrollToTop();
+      // さらに少し遅延させてモバイルでも確実に動作
+      setTimeout(scrollToTop, 50);
+    });
+
+    // ページが完全に読み込まれた後にも確認
+    const handleLoad = () => scrollToTop();
+    window.addEventListener('load', handleLoad);
+    
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, [id]);
 
   const handleBack = () => {
     navigate(-1);
@@ -61,7 +89,7 @@ const ProductDetail = () => {
       </button>
 
       {/* Hero Image */}
-      <div className="w-full aspect-square md:aspect-[4/5] bg-gray-100 relative overflow-hidden">
+      <div className="w-full aspect-square md:aspect-[4/5] bg-gray-100 relative overflow-hidden pt-0">
         <img
           src={product.images[0]}
           srcSet={`${product.images[0]} 1x, ${product.images[0]} 2x`}

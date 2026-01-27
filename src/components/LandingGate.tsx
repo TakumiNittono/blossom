@@ -1,32 +1,27 @@
-import { FC, useState, useEffect } from 'react';
+import { FC } from 'react';
 
 interface LandingGateProps {
   onShopHere: () => void;
 }
 
 const LandingGate: FC<LandingGateProps> = ({ onShopHere }) => {
-  const [showGate, setShowGate] = useState(false);
-
-  useEffect(() => {
-    const visited = localStorage.getItem('blossom_visited');
-    if (!visited) {
-      setShowGate(true);
-    }
-  }, []);
-
   const handleShopHere = () => {
-    localStorage.setItem('blossom_visited', 'true');
-    setShowGate(false);
     onShopHere();
   };
 
-  if (!showGate) return null;
-
   return (
-    <div className="fixed inset-0 bg-white z-[9999] flex items-center justify-center animate-fadeIn">
+    <div className="fixed inset-0 bg-white z-[9999] flex items-center justify-center">
       <div className="text-center">
-        {/* Logo */}
-        <div className="mb-12">
+        {/* Logo with Icon */}
+        <div className="mb-12 flex flex-col items-center">
+          {/* Blossom Icon */}
+          <div className="mb-6">
+            <img 
+              src="/blossom-icon.png" 
+              alt="Blossom" 
+              className="w-24 h-24 md:w-32 md:h-32 mx-auto object-contain"
+            />
+          </div>
           <h1 className="text-6xl md:text-8xl font-bold tracking-tight">BLOSSOM</h1>
         </div>
         

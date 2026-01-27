@@ -33,6 +33,8 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
   const handleClick = () => {
     // Save scroll position before navigation
     sessionStorage.setItem('shopScrollPosition', window.scrollY.toString());
+    // 商品詳細ページに遷移する前にスクロール位置をリセット
+    window.scrollTo(0, 0);
     navigate(`/product/${product.id}`);
   };
 

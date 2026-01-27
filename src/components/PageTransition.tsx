@@ -11,8 +11,15 @@ const PageTransition: FC<PageTransitionProps> = ({ children }) => {
 
   useEffect(() => {
     setIsVisible(false);
+    // ページ遷移時にトップにスクロール（モバイル対応）
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
     const timer = setTimeout(() => {
       setIsVisible(true);
+      // アニメーション後に再度スクロール位置を確認
+      window.scrollTo(0, 0);
     }, 150);
     return () => clearTimeout(timer);
   }, [location.pathname]);
