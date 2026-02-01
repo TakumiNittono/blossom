@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 const HeroSection: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
 
   const handleShopNow = () => {
     if (location.pathname === '/') {
@@ -33,8 +35,8 @@ const HeroSection: FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end">
           {/* Left Text */}
           <div className="text-white mb-8 md:mb-0">
-            <h2 className="text-5xl md:text-7xl font-bold mb-2">LAST RESORT</h2>
-            <p className="text-lg md:text-xl">LAST RESORT DROP - LIVE NOW</p>
+            <h2 className="text-5xl md:text-7xl font-bold mb-2">{t('last.resort')}</h2>
+            <p className="text-lg md:text-xl">{t('last.resort.drop')}</p>
           </div>
 
           {/* Right Button */}
@@ -42,7 +44,7 @@ const HeroSection: FC = () => {
             onClick={handleShopNow}
             className="bg-white text-black px-8 py-3 border-2 border-black font-semibold hover:bg-gray-100 transition-colors cursor-pointer"
           >
-            SHOP NOW
+            {t('shop.now')}
           </button>
         </div>
       </div>

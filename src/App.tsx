@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
+import { LanguageProvider } from './context/LanguageContext';
 import LandingGate from './components/LandingGate';
 import IntroPopup from './components/IntroPopup';
 import GlobalLoader from './components/GlobalLoader';
@@ -85,11 +86,13 @@ const AppContent = () => {
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </AppProvider>
+    <LanguageProvider>
+      <AppProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </AppProvider>
+    </LanguageProvider>
   );
 }
 

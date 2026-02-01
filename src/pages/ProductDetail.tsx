@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 import { mockProducts } from '../data/products';
 import Accordion from '../components/Accordion';
 import SizeGuide from '../components/SizeGuide';
@@ -9,6 +10,7 @@ const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { addToCart, openCart, setLoading } = useApp();
+  const { language, t, formatPrice } = useLanguage();
   const [selectedSize, setSelectedSize] = useState<string>('');
 
   // ページマウント時にトップにスクロール（モバイル対応）
@@ -39,22 +41,18 @@ const ProductDetail = () => {
     };
   }, [id]);
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const product = mockProducts.find((p) => p.id === id);
 
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">PRODUCT NOT FOUND</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('product.not.found')}</h1>
           <button
             onClick={() => navigate('/shop')}
             className="border-b-2 border-black pb-1 uppercase tracking-wide"
           >
-            BACK TO SHOP
+            {t('back.to.shop')}
           </button>
         </div>
       </div>
@@ -63,7 +61,7 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert('Please select a size');
+      alert(t('please.select.size'));
       return;
     }
 
@@ -80,14 +78,6 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Back Button */}
-      <button
-        onClick={handleBack}
-        className="fixed top-20 left-4 md:left-8 z-10 bg-white/80 backdrop-blur-sm px-4 py-2 uppercase text-sm tracking-wide hover:opacity-70 brand-transition"
-      >
-        ← BACK
-      </button>
-
       {/* Mobile: Vertical Layout */}
       <div className="md:hidden">
         {/* Hero Image */}
@@ -107,11 +97,11 @@ const ProductDetail = () => {
           <h1 className="text-2xl font-bold mb-2 tracking-tight uppercase">
             {product.name}
           </h1>
-          <p className="text-xl font-semibold mb-8">{product.price}</p>
+          <p className="text-xl font-semibold mb-8">{formatPrice(product.price)}</p>
 
           {/* Size Selector */}
           <div className="mb-8">
-            <label className="block text-sm uppercase tracking-wide mb-4">SIZE</label>
+            <label className="block text-sm uppercase tracking-wide mb-4">{t('size')}</label>
             <div className="grid grid-cols-6 gap-2">
               {product.sizes.map((size) => (
                 <button
@@ -138,35 +128,35 @@ const ProductDetail = () => {
             disabled={!selectedSize}
             className="w-full bg-black text-white py-4 px-6 uppercase tracking-wider text-sm font-medium hover:bg-gray-800 brand-transition disabled:opacity-50 disabled:cursor-not-allowed mb-12"
           >
-            ADD TO CART
+            {t('add.to.cart')}
           </button>
 
           {/* Accordion Sections */}
           <div className="space-y-0">
-            <Accordion title="DETAILS">
+            <Accordion title={t('details')}>
               <p className="text-sm text-gray-600 leading-relaxed">
                 {product.name} is part of the BLOSSOM collection. Crafted with premium materials
                 and attention to detail, this piece embodies minimalist design and quality construction.
               </p>
             </Accordion>
 
-            <Accordion title="SIZING">
+            <Accordion title={t('sizing')}>
               <SizeGuide />
             </Accordion>
 
-            <Accordion title="DELIVERY">
+            <Accordion title={t('delivery')}>
               <div className="text-sm text-gray-600 space-y-4">
                 <div>
-                  <p className="font-medium mb-2">STANDARD SHIPPING</p>
-                  <p>Free shipping on orders over $100. Estimated delivery: 3-5 business days.</p>
+                  <p className="font-medium mb-2">{t('standard.shipping')}</p>
+                  <p>{language === 'ja' ? '$100以上の注文で送料無料。配送予定：3-5営業日。' : 'Free shipping on orders over $100. Estimated delivery: 3-5 business days.'}</p>
                 </div>
                 <div>
-                  <p className="font-medium mb-2">EXPRESS SHIPPING</p>
-                  <p>$15. Estimated delivery: 1-2 business days.</p>
+                  <p className="font-medium mb-2">{t('express.shipping')}</p>
+                  <p>{language === 'ja' ? '$15。配送予定：1-2営業日。' : '$15. Estimated delivery: 1-2 business days.'}</p>
                 </div>
                 <div>
-                  <p className="font-medium mb-2">INTERNATIONAL</p>
-                  <p>Shipping rates calculated at checkout. Duties and taxes included.</p>
+                  <p className="font-medium mb-2">{t('international')}</p>
+                  <p>{language === 'ja' ? '送料はチェックアウト時に計算されます。関税・税金込み。' : 'Shipping rates calculated at checkout. Duties and taxes included.'}</p>
                 </div>
               </div>
             </Accordion>
@@ -197,11 +187,11 @@ const ProductDetail = () => {
               <h1 className="text-3xl font-bold mb-2 tracking-tight uppercase">
                 {product.name}
               </h1>
-              <p className="text-2xl font-semibold mb-8">{product.price}</p>
+              <p className="text-2xl font-semibold mb-8">{formatPrice(product.price)}</p>
 
               {/* Size Selector */}
               <div className="mb-8">
-                <label className="block text-sm uppercase tracking-wide mb-4">SIZE</label>
+                <label className="block text-sm uppercase tracking-wide mb-4">{t('size')}</label>
                 <div className="grid grid-cols-6 gap-2">
                   {product.sizes.map((size) => (
                     <button
@@ -228,35 +218,37 @@ const ProductDetail = () => {
                 disabled={!selectedSize}
                 className="w-full bg-black text-white py-4 px-6 uppercase tracking-wider text-sm font-medium hover:bg-gray-800 brand-transition disabled:opacity-50 disabled:cursor-not-allowed mb-12"
               >
-                ADD TO CART
+                {t('add.to.cart')}
               </button>
 
               {/* Accordion Sections */}
               <div className="space-y-0">
-                <Accordion title="DETAILS">
+                <Accordion title={t('details')}>
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    {product.name} is part of the BLOSSOM collection. Crafted with premium materials
-                    and attention to detail, this piece embodies minimalist design and quality construction.
+                    {language === 'ja' 
+                      ? `${product.name}はBLOSSOMコレクションの一部です。プレミアム素材と細部への配慮で作られており、ミニマルなデザインと品質の高い構造を体現しています。`
+                      : `${product.name} is part of the BLOSSOM collection. Crafted with premium materials and attention to detail, this piece embodies minimalist design and quality construction.`
+                    }
                   </p>
                 </Accordion>
 
-                <Accordion title="SIZING">
+                <Accordion title={t('sizing')}>
                   <SizeGuide />
                 </Accordion>
 
-                <Accordion title="DELIVERY">
+                <Accordion title={t('delivery')}>
                   <div className="text-sm text-gray-600 space-y-4">
                     <div>
-                      <p className="font-medium mb-2">STANDARD SHIPPING</p>
-                      <p>Free shipping on orders over $100. Estimated delivery: 3-5 business days.</p>
+                      <p className="font-medium mb-2">{t('standard.shipping')}</p>
+                      <p>{language === 'ja' ? '$100以上の注文で送料無料。配送予定：3-5営業日。' : 'Free shipping on orders over $100. Estimated delivery: 3-5 business days.'}</p>
                     </div>
                     <div>
-                      <p className="font-medium mb-2">EXPRESS SHIPPING</p>
-                      <p>$15. Estimated delivery: 1-2 business days.</p>
+                      <p className="font-medium mb-2">{t('express.shipping')}</p>
+                      <p>{language === 'ja' ? '$15。配送予定：1-2営業日。' : '$15. Estimated delivery: 1-2 business days.'}</p>
                     </div>
                     <div>
-                      <p className="font-medium mb-2">INTERNATIONAL</p>
-                      <p>Shipping rates calculated at checkout. Duties and taxes included.</p>
+                      <p className="font-medium mb-2">{t('international')}</p>
+                      <p>{language === 'ja' ? '送料はチェックアウト時に計算されます。関税・税金込み。' : 'Shipping rates calculated at checkout. Duties and taxes included.'}</p>
                     </div>
                   </div>
                 </Accordion>

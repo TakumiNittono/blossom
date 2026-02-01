@@ -1,10 +1,13 @@
 import { FC } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface LandingGateProps {
   onShopHere: () => void;
 }
 
 const LandingGate: FC<LandingGateProps> = ({ onShopHere }) => {
+  const { t } = useLanguage();
+  
   const handleShopHere = () => {
     onShopHere();
   };
@@ -31,7 +34,7 @@ const LandingGate: FC<LandingGateProps> = ({ onShopHere }) => {
           className="text-sm md:text-base tracking-widest uppercase border-b-2 border-black pb-2 hover:opacity-70 transition-opacity duration-300"
           style={{ fontFamily: 'sans-serif' }}
         >
-          SHOP HERE
+          {t('shop.here')}
         </button>
       </div>
     </div>

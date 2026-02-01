@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../data/products';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ProductCardProps {
   product: Product;
@@ -11,6 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover, dimOthers = false }) => {
   const navigate = useNavigate();
+  const { formatPrice } = useLanguage();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -77,7 +79,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
       {/* Product Info */}
       <div className="text-sm">
         <h3 className="font-medium mb-1 tracking-wide">{product.name}</h3>
-        <p className="font-semibold">{product.price}</p>
+        <p className="font-semibold">{formatPrice(product.price)}</p>
       </div>
     </div>
   );
