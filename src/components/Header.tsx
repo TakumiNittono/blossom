@@ -60,7 +60,7 @@ const Header: FC = () => {
                 onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
                 className="hover:text-gray-600 cursor-pointer text-xs uppercase tracking-wide border border-black px-2 py-1"
               >
-                {language === 'en' ? '日本語' : 'EN'}
+                {language === 'en' ? 'JP' : 'EN'}
               </button>
             </div>
 
@@ -73,7 +73,7 @@ const Header: FC = () => {
                 onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
                 className="hover:text-gray-600 cursor-pointer text-xs uppercase tracking-wide border border-black px-2 py-1"
               >
-                {language === 'en' ? '日本語' : 'EN'}
+                {language === 'en' ? 'JP' : 'EN'}
               </button>
               <Link to="/wishlist" className="hover:text-gray-600 cursor-pointer">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
