@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const CartDrawer: FC = () => {
   const {
@@ -10,6 +11,7 @@ const CartDrawer: FC = () => {
     removeFromCart,
     updateCartQuantity,
   } = useApp();
+  const { language, t, formatPrice, formatAmount } = useLanguage();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,7 +58,7 @@ const CartDrawer: FC = () => {
         <div className="p-6 md:p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-xl font-bold uppercase tracking-wide">CART</h2>
+            <h2 className="text-xl font-bold uppercase tracking-wide">{t('cart')}</h2>
             <button
               onClick={closeCart}
               className="text-2xl hover:opacity-70 brand-transition"
@@ -68,7 +70,7 @@ const CartDrawer: FC = () => {
           {/* Cart Items */}
           {cart.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-500 mb-4">Your cart is empty</p>
+              <p className="text-gray-500 mb-4">{t('your.cart.is.empty')}</p>
               <button
                 onClick={() => {
                   closeCart();
@@ -76,7 +78,7 @@ const CartDrawer: FC = () => {
                 }}
                 className="border-b-2 border-black pb-1 uppercase tracking-wide"
               >
-                CONTINUE SHOPPING
+                {t('continue.shopping')}
               </button>
             </div>
           ) : (
@@ -98,8 +100,8 @@ const CartDrawer: FC = () => {
                       <h3 className="text-sm font-medium mb-1 uppercase tracking-wide truncate">
                         {item.name}
                       </h3>
-                      <p className="text-xs text-gray-600 mb-2">Size: {item.selectedSize}</p>
-                      <p className="text-sm font-semibold mb-3">{item.price}</p>
+                      <p className="text-xs text-gray-600 mb-2">{t('size.label')} {item.selectedSize}</p>
+                      <p className="text-sm font-semibold mb-3">{formatPrice(item.price)}</p>
 
                       {/* Quantity Controls */}
                       <div className="flex items-center gap-3">
@@ -137,29 +139,29 @@ const CartDrawer: FC = () => {
               {/* Subtotal */}
               <div className="border-t pt-6 mb-6">
                 <div className="flex justify-between items-center mb-4">
-                  <span className="uppercase tracking-wide">SUBTOTAL</span>
-                  <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                  <span className="uppercase tracking-wide">{t('subtotal')}</span>
+                  <span className="font-semibold">{formatAmount(subtotal)}</span>
                 </div>
                 <p className="text-xs text-gray-600 mb-6">
-                  Shipping and taxes calculated at checkout
+                  {t('shipping.and.taxes.calculated')}
                 </p>
 
                 {/* Checkout Button */}
                 <button
                   onClick={() => {
-                    alert('Proceeding to checkout...');
+                    alert(language === 'ja' ? 'チェックアウトに進みます...' : 'Proceeding to checkout...');
                     closeCart();
                   }}
                   className="w-full bg-black text-white py-4 px-6 uppercase tracking-wider text-sm font-medium hover:bg-gray-800 brand-transition mb-4"
                 >
-                  CHECKOUT
+                  {t('checkout')}
                 </button>
 
                 <button
                   onClick={closeCart}
                   className="w-full border-2 border-black py-3 px-6 uppercase tracking-wider text-sm font-medium hover:bg-gray-50 brand-transition"
                 >
-                  CONTINUE SHOPPING
+                  {t('continue.shopping')}
                 </button>
               </div>
             </>

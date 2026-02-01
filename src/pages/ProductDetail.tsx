@@ -148,11 +148,11 @@ const ProductDetail = () => {
               <div className="text-sm text-gray-600 space-y-4">
                 <div>
                   <p className="font-medium mb-2">{t('standard.shipping')}</p>
-                  <p>{language === 'ja' ? '$100以上の注文で送料無料。配送予定：3-5営業日。' : 'Free shipping on orders over $100. Estimated delivery: 3-5 business days.'}</p>
+                  <p>{language === 'ja' ? '¥15,000以上の注文で送料無料。配送予定：3-5営業日。' : 'Free shipping on orders over $100. Estimated delivery: 3-5 business days.'}</p>
                 </div>
                 <div>
                   <p className="font-medium mb-2">{t('express.shipping')}</p>
-                  <p>{language === 'ja' ? '$15。配送予定：1-2営業日。' : '$15. Estimated delivery: 1-2 business days.'}</p>
+                  <p>{language === 'ja' ? '¥2,250。配送予定：1-2営業日。' : '$15. Estimated delivery: 1-2 business days.'}</p>
                 </div>
                 <div>
                   <p className="font-medium mb-2">{t('international')}</p>
@@ -240,11 +240,11 @@ const ProductDetail = () => {
                   <div className="text-sm text-gray-600 space-y-4">
                     <div>
                       <p className="font-medium mb-2">{t('standard.shipping')}</p>
-                      <p>{language === 'ja' ? '$100以上の注文で送料無料。配送予定：3-5営業日。' : 'Free shipping on orders over $100. Estimated delivery: 3-5 business days.'}</p>
+                      <p>{language === 'ja' ? '¥15,000以上の注文で送料無料。配送予定：3-5営業日。' : 'Free shipping on orders over $100. Estimated delivery: 3-5 business days.'}</p>
                     </div>
                     <div>
                       <p className="font-medium mb-2">{t('express.shipping')}</p>
-                      <p>{language === 'ja' ? '$15。配送予定：1-2営業日。' : '$15. Estimated delivery: 1-2 business days.'}</p>
+                      <p>{language === 'ja' ? '¥2,250。配送予定：1-2営業日。' : '$15. Estimated delivery: 1-2 business days.'}</p>
                     </div>
                     <div>
                       <p className="font-medium mb-2">{t('international')}</p>

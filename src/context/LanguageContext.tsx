@@ -110,6 +110,50 @@ const translations: Translations = {
     en: 'SHOP NOW',
     ja: '今すぐ購入',
   },
+  'cart': {
+    en: 'CART',
+    ja: 'カート',
+  },
+  'your.cart.is.empty': {
+    en: 'Your cart is empty',
+    ja: 'カートは空です',
+  },
+  'continue.shopping': {
+    en: 'CONTINUE SHOPPING',
+    ja: 'ショッピングを続ける',
+  },
+  'subtotal': {
+    en: 'SUBTOTAL',
+    ja: '小計',
+  },
+  'shipping.and.taxes.calculated': {
+    en: 'Shipping and taxes calculated at checkout',
+    ja: '送料と税金はチェックアウト時に計算されます',
+  },
+  'checkout': {
+    en: 'CHECKOUT',
+    ja: 'チェックアウト',
+  },
+  'size.label': {
+    en: 'Size:',
+    ja: 'サイズ:',
+  },
+  'shipping': {
+    en: 'Shipping',
+    ja: '送料',
+  },
+  'total': {
+    en: 'Total',
+    ja: '合計',
+  },
+  'remove': {
+    en: 'Remove',
+    ja: '削除',
+  },
+  'order.summary': {
+    en: 'Order Summary',
+    ja: '注文概要',
+  },
 };
 
 interface LanguageContextType {
@@ -117,6 +161,7 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
   formatPrice: (price: string) => string;
+  formatAmount: (amount: number) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -150,8 +195,17 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return price; // 英語の場合はそのままドル表示
   };
 
+  // 金額を言語に応じてフォーマット（数値から）
+  const formatAmount = (amount: number): string => {
+    if (language === 'ja') {
+      const yenAmount = Math.round(amount * 150);
+      return `¥${yenAmount.toLocaleString()}`;
+    }
+    return `$${amount.toFixed(2)}`;
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, formatPrice }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, formatPrice, formatAmount }}>
       {children}
     </LanguageContext.Provider>
   );
