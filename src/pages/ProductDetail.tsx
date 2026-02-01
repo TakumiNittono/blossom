@@ -135,8 +135,10 @@ const ProductDetail = () => {
           <div className="space-y-0">
             <Accordion title={t('details')}>
               <p className="text-sm text-gray-600 leading-relaxed">
-                {product.name} is part of the BLOSSOM collection. Crafted with premium materials
-                and attention to detail, this piece embodies minimalist design and quality construction.
+                {language === 'ja' 
+                  ? `${product.name}はBLOSSOMコレクションの一部です。プレミアム素材と細部への配慮で作られており、ミニマルなデザインと品質の高い構造を体現しています。`
+                  : `${product.name} is part of the BLOSSOM collection. Crafted with premium materials and attention to detail, this piece embodies minimalist design and quality construction.`
+                }
               </p>
             </Accordion>
 
