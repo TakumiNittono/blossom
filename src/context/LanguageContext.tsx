@@ -154,6 +154,34 @@ const translations: Translations = {
     en: 'Order Summary',
     ja: '注文概要',
   },
+  'account': {
+    en: 'Account',
+    ja: 'アカウント',
+  },
+  'login': {
+    en: 'Login',
+    ja: 'ログイン',
+  },
+  'email.address': {
+    en: 'Email Address',
+    ja: 'メールアドレス',
+  },
+  'password': {
+    en: 'Password',
+    ja: 'パスワード',
+  },
+  'register': {
+    en: 'Create Account',
+    ja: '新規登録',
+  },
+  'no.account': {
+    en: 'New here? Create an account to get started.',
+    ja: 'アカウントをお持ちでない方は、新規登録を行ってください。',
+  },
+  'sign.up': {
+    en: 'Sign Up',
+    ja: '新規登録',
+  },
 };
 
 interface LanguageContextType {
