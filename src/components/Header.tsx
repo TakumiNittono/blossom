@@ -58,7 +58,7 @@ const Header: FC = () => {
             <div className="flex items-center space-x-4 md:space-x-6">
               <button
                 onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
-                className="flex items-center hover:text-gray-600 cursor-pointer text-xs uppercase tracking-wide border border-black px-2 py-1 h-7"
+                className="flex items-center justify-center hover:text-gray-600 cursor-pointer text-xs uppercase tracking-wide border border-black px-2 h-7 leading-none"
               >
                 {language === 'en' ? 'JP' : 'EN'}
               </button>
