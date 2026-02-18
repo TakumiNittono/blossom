@@ -16,7 +16,7 @@ const productImage = '/IMG_8907.JPG';
 
 export const mockProducts: Product[] = [
   {
-    id: '1',
+    id: 'CODE:001',
     name: 'GRAPHIC TEE BLACK',
     price: 13350,
     images: [productImage, productImage],
@@ -31,7 +31,7 @@ export const mockProducts: Product[] = [
     ],
   },
   {
-    id: '2',
+    id: 'CODE:002',
     name: 'CODE001SET UP',
     price: 17800,
     images: ['/IMG_0064.JPG', '/IMG_0064.JPG'],

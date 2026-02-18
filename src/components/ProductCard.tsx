@@ -74,10 +74,6 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
         {!isImageLoaded && (
           <div className="absolute inset-0 bg-gray-200 animate-pulse" />
         )}
-        {/* Coming Soon Overlay */}
-        <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-          <span className="text-white text-sm md:text-base font-bold uppercase tracking-widest">COMING SOON</span>
-        </div>
       </div>
 
       {/* Product Info */}

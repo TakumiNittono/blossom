@@ -34,6 +34,10 @@ const translations: Translations = {
     en: 'FAQS',
     ja: 'よくある質問',
   },
+  'hoodies': {
+    en: 'HOODIES',
+    ja: 'フーディー',
+  },
   'cold.tour': {
     en: 'COLD TOUR',
     ja: 'コールドツアー',
