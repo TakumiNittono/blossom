@@ -34,19 +34,7 @@ const Header: FC = () => {
     }
   };
 
-  const handleCategoryClick = (e: React.MouseEvent<HTMLAnchorElement>, category: string) => {
-    e.preventDefault();
-    if (location.pathname === '/') {
-      const newArrivalsSection = document.getElementById('new-arrivals');
-      if (newArrivalsSection) {
-        newArrivalsSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate(`/category/${category.toLowerCase()}`);
-    }
-  };
-
-  return (
+return (
     <div
       className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
         visible ? 'translate-y-0' : '-translate-y-full'
@@ -110,7 +98,7 @@ const Header: FC = () => {
         <div className="border-t border-gray-200">
           <div className="w-full overflow-x-auto">
             <nav className="flex items-center space-x-4 md:space-x-6 py-3 px-4 sm:px-6 lg:px-8 text-xs md:text-sm min-w-max">
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'NEW ARRIVALS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">{t('new.arrivals')}</a>
+              <Link to="/" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">{t('new.arrivals')}</Link>
             </nav>
           </div>
         </div>
