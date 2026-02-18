@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
-import { LanguageProvider } from './context/LanguageContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import LandingGate from './components/LandingGate';
 import IntroPopup from './components/IntroPopup';
 import GlobalLoader from './components/GlobalLoader';
@@ -19,6 +19,20 @@ import Collections from './pages/Collections';
 import Stores from './pages/Stores';
 import FAQs from './pages/FAQs';
 import Account from './pages/Account';
+
+const LanguageToggle = () => {
+  const { language, setLanguage } = useLanguage();
+  return (
+    <div className="fixed bottom-6 right-6 z-50">
+      <button
+        onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
+        className="bg-white border border-black text-black text-xs uppercase tracking-wide px-3 py-2 shadow-md hover:bg-black hover:text-white brand-transition cursor-pointer"
+      >
+        {language === 'en' ? 'JP' : 'EN'}
+      </button>
+    </div>
+  );
+};
 
 const AppContent = () => {
   const { isLoading } = useApp();
@@ -53,6 +67,7 @@ const AppContent = () => {
       <CartDrawer />
       
       <Header />
+      <div className="pt-[136px]" />
       <PageTransition>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -69,17 +84,8 @@ const AppContent = () => {
         </Routes>
       </PageTransition>
       
-      {/* Chat Icon */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button 
-          onClick={() => alert('Customer support chat')}
-          className="bg-red-600 text-white rounded-full p-4 shadow-lg hover:bg-red-700 brand-transition cursor-pointer"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-        </button>
-      </div>
+      {/* Language Toggle */}
+      <LanguageToggle />
     </div>
   );
 };

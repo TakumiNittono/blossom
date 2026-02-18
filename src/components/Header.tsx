@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -8,6 +8,23 @@ const Header: FC = () => {
   const location = useLocation();
   const { cartCount, openCart } = useApp();
   const { language, setLanguage, t } = useLanguage();
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < lastScrollY.current || currentScrollY < 10) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLogoClick = () => {
     if (location.pathname === '/') {
@@ -30,7 +47,11 @@ const Header: FC = () => {
   };
 
   return (
-    <>
+    <div
+      className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+        visible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       {/* Top Banner */}
       <div className="bg-red-600 text-white text-center py-1 text-xs">
         {t('taxes.duties.included')}
@@ -39,35 +60,31 @@ const Header: FC = () => {
       {/* Main Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Left Navigation */}
-            <nav className="hidden md:flex space-x-6 text-sm font-medium">
-              <Link to="/shop" className="hover:text-gray-600">{t('shop')}</Link>
-              <Link to="/shop" className="hover:text-gray-600">{t('private.sales')}</Link>
-              <Link to="/collections" className="hover:text-gray-600">{t('collections')}</Link>
-              <Link to="/stores" className="hover:text-gray-600">{t('stores')}</Link>
-              <Link to="/faqs" className="hover:text-gray-600">{t('faqs')}</Link>
-            </nav>
-
-            {/* Logo */}
-            <div className="flex-1 flex justify-center">
-              <h1 onClick={handleLogoClick} className="text-2xl font-bold cursor-pointer hover:opacity-70 brand-transition uppercase tracking-tight">BLOSSOM</h1>
-            </div>
-
-            {/* Right Navigation */}
-            <div className="flex items-center space-x-4 md:space-x-6">
-              <button
-                onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
-                className="flex items-center justify-center hover:text-gray-600 cursor-pointer text-xs uppercase tracking-wide border border-black px-2 h-7 leading-none"
-              >
-                {language === 'en' ? 'JP' : 'EN'}
-              </button>
+          <div className="relative flex items-center justify-between h-16">
+            {/* Left: Account */}
+            <div className="flex items-center space-x-6">
               <Link to="/account" className="flex items-center hover:text-gray-600 cursor-pointer">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </Link>
-              <button onClick={() => navigate('/search')} className="flex items-center hover:text-gray-600 cursor-pointer">
+              <nav className="hidden md:flex space-x-6 text-sm font-medium">
+                <Link to="/shop" className="hover:text-gray-600">{t('shop')}</Link>
+                <Link to="/shop" className="hover:text-gray-600">{t('private.sales')}</Link>
+                <Link to="/collections" className="hover:text-gray-600">{t('collections')}</Link>
+                <Link to="/stores" className="hover:text-gray-600">{t('stores')}</Link>
+                <Link to="/faqs" className="hover:text-gray-600">{t('faqs')}</Link>
+              </nav>
+            </div>
+
+            {/* Center: Logo (absolutely centered) */}
+            <div className="absolute left-1/2 -translate-x-1/2">
+              <h1 onClick={handleLogoClick} className="text-2xl font-bold cursor-pointer hover:opacity-70 brand-transition uppercase tracking-tight">BLOSSOM</h1>
+            </div>
+
+            {/* Right: Search + Bag */}
+            <div className="flex items-center space-x-4 md:space-x-6">
+<button onClick={() => navigate('/search')} className="flex items-center hover:text-gray-600 cursor-pointer">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -98,7 +115,7 @@ const Header: FC = () => {
           </div>
         </div>
       </header>
-    </>
+    </div>
   );
 };
 
