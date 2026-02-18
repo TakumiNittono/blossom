@@ -10,6 +10,7 @@ export interface Product {
   images: string[];
   category: string;
   sizes: SizeVariant[];
+  comingSoon?: boolean;
 }
 
 const productImage = '/IMG_8907.JPG';
@@ -21,6 +22,7 @@ export const mockProducts: Product[] = [
     price: 13350,
     images: [productImage, productImage],
     category: 'TEES',
+    comingSoon: true,
     sizes: [
       { size: 'XS', available: true },
       { size: 'S', available: true },
