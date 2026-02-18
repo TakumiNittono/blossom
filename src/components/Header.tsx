@@ -46,7 +46,7 @@ return (
 
             {/* Center: Logo (absolutely centered) */}
             <div className="absolute left-1/2 -translate-x-1/2">
-              <h1 onClick={handleLogoClick} className="text-2xl font-bold cursor-pointer hover:opacity-70 brand-transition uppercase tracking-tight" style={{ fontFamily: "'Broken Ranch', serif" }}>BLOSSOM</h1>
+              <h1 onClick={handleLogoClick} className="text-2xl font-bold cursor-pointer hover:opacity-70 brand-transition uppercase tracking-tight">BLOSSOM</h1>
             </div>
 
             {/* Right: Search + Bag */}
