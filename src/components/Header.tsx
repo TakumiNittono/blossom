@@ -111,10 +111,7 @@ const Header: FC = () => {
         <div className="border-t border-gray-200">
           <div className="w-full overflow-x-auto">
             <nav className="flex items-center space-x-4 md:space-x-6 py-3 px-4 sm:px-6 lg:px-8 text-xs md:text-sm min-w-max">
-              <a href="#" onClick={(e) => handleCategoryClick(e, 'LAST RESORT')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">LAST RESORT <span className="text-red-600">NEW</span></a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'NEW ARRIVALS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">{t('new.arrivals')}</a>
-              <Link to="/shop" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">BEST SELLERS</Link>
-              <Link to="/shop" className="whitespace-nowrap text-red-600 font-semibold uppercase tracking-wide">PRIVATE SALES</Link>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'HOODIES')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">HOODIES</a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'ZIPS')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">ZIPS</a>
               <a href="#" onClick={(e) => handleCategoryClick(e, 'KNITWEAR')} className="whitespace-nowrap hover:text-gray-600 cursor-pointer uppercase tracking-wide">KNITWEAR</a>
