@@ -44,7 +44,7 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
     onClose();
     
     // Show toast notification
-    alert('Thank you for signing up!');
+    alert('ご登録ありがとうございます！');
   };
 
   const handleNoThanks = () => {
@@ -70,11 +70,11 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
         </button>
 
         <h2 className="text-2xl md:text-3xl font-bold mb-4 uppercase tracking-wide">
-          Join BLOSSOM
+          JOIN BLOSSOM
         </h2>
 
         <p className="text-sm text-gray-600 mb-6">
-          Sign up to stay updated on new arrivals and exclusive releases
+          新着商品や限定リリースの最新情報をお届けします
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -85,13 +85,13 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
               setEmail(e.target.value);
               setError('');
             }}
-            placeholder="Enter your email"
+            placeholder="メールアドレスを入力"
             className="w-full border-b-2 border-black px-2 py-3 focus:outline-none focus:border-gray-400 transition-colors duration-200"
             required
           />
-          
+
           {error && (
-            <p className="text-red-600 text-sm">{error}</p>
+            <p className="text-red-600 text-sm">有効なメールアドレスを入力してください</p>
           )}
 
           <div className="flex gap-4 pt-4">
@@ -100,15 +100,15 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
               disabled={isSubmitting}
               className="flex-1 bg-black text-white py-3 px-6 uppercase text-sm tracking-wider hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50"
             >
-              {isSubmitting ? 'Sending...' : 'Sign Up'}
+              {isSubmitting ? '送信中...' : '登録する'}
             </button>
-            
+
             <button
               type="button"
               onClick={handleNoThanks}
               className="flex-1 border-2 border-black py-3 px-6 uppercase text-sm tracking-wider hover:bg-gray-50 transition-colors duration-200"
             >
-              No thanks
+              スキップ
             </button>
           </div>
         </form>
