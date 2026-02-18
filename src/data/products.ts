@@ -17,6 +17,18 @@ const productImage = '/IMG_8907.JPG';
 
 export const mockProducts: Product[] = [
   {
+    id: 'CODE:002',
+    name: 'CODE001SET UP',
+    price: 17800,
+    images: ['/IMG_0064.JPG', '/IMG_0064.JPG'],
+    category: 'ZIPS',
+    sizes: [
+      { size: 'M', available: true },
+      { size: 'L', available: true },
+      { size: 'XL', available: true },
+    ],
+  },
+  {
     id: 'CODE:001',
     name: 'GRAPHIC TEE BLACK',
     price: 13350,
@@ -30,18 +42,6 @@ export const mockProducts: Product[] = [
       { size: 'L', available: true },
       { size: 'XL', available: true },
       { size: 'XXL', available: true },
-    ],
-  },
-  {
-    id: 'CODE:002',
-    name: 'CODE001SET UP',
-    price: 17800,
-    images: ['/IMG_0064.JPG', '/IMG_0064.JPG'],
-    category: 'ZIPS',
-    sizes: [
-      { size: 'M', available: true },
-      { size: 'L', available: true },
-      { size: 'XL', available: true },
     ],
   },
 ];
