@@ -39,7 +39,7 @@ const CartDrawer: FC = () => {
   if (!cartOpen) return null;
 
   const subtotal = cart.reduce(
-    (sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity,
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 

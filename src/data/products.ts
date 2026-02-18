@@ -6,8 +6,8 @@ export interface SizeVariant {
 export interface Product {
   id: string;
   name: string;
-  price: string;
-  images: string[]; // Multiple images for hover/swipe
+  price: number; // 円（JPY）
+  images: string[];
   category: string;
   sizes: SizeVariant[];
 }
@@ -18,7 +18,7 @@ export const mockProducts: Product[] = [
   {
     id: '1',
     name: 'GRAPHIC TEE BLACK',
-    price: '$89.00',
+    price: 13350,
     images: [productImage, productImage],
     category: 'TEES',
     sizes: [
@@ -28,6 +28,18 @@ export const mockProducts: Product[] = [
       { size: 'L', available: true },
       { size: 'XL', available: true },
       { size: 'XXL', available: true },
+    ],
+  },
+  {
+    id: '2',
+    name: 'CODE001SET UP',
+    price: 17800,
+    images: ['/IMG_0064.JPG', '/IMG_0064.JPG'],
+    category: 'ZIPS',
+    sizes: [
+      { size: 'M', available: true },
+      { size: 'L', available: true },
+      { size: 'XL', available: true },
     ],
   },
 ];

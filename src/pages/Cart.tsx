@@ -8,7 +8,7 @@ const Cart = () => {
   const { language, t, formatPrice, formatAmount } = useLanguage();
 
   const total = cart.reduce(
-    (sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity,
+    (sum, item) => sum + item.price * item.quantity,
     0
   );
 
@@ -95,7 +95,7 @@ const Cart = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-semibold">
-                    {formatAmount(parseFloat(item.price.replace('$', '')) * item.quantity)}
+                    {formatAmount(item.price * item.quantity)}
                   </p>
                 </div>
               </div>

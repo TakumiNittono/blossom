@@ -188,7 +188,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
-  formatPrice: (price: string) => string;
+  formatPrice: (price: number) => string;
   formatAmount: (amount: number) => string;
 }
 
@@ -212,24 +212,23 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return translations[key]?.[language] || key;
   };
 
-  // 価格を言語に応じてフォーマット（ドル/円）
-  const formatPrice = (price: string): string => {
+  // 価格を言語に応じてフォーマット（円ベース）
+  const formatPrice = (price: number): string => {
     if (language === 'ja') {
-      // ドル価格を円に変換（1ドル = 150円として計算）
-      const dollarAmount = parseFloat(price.replace('$', '').replace(',', ''));
-      const yenAmount = Math.round(dollarAmount * 150);
-      return `¥${yenAmount.toLocaleString()}`;
+      return `¥${price.toLocaleString()}`;
     }
-    return price; // 英語の場合はそのままドル表示
+    // 英語の場合は円をドルに変換（1ドル = 150円）
+    const dollarAmount = (price / 150).toFixed(2);
+    return `$${dollarAmount}`;
   };
 
-  // 金額を言語に応じてフォーマット（数値から）
+  // 金額を言語に応じてフォーマット（円ベースの数値から）
   const formatAmount = (amount: number): string => {
     if (language === 'ja') {
-      const yenAmount = Math.round(amount * 150);
-      return `¥${yenAmount.toLocaleString()}`;
+      return `¥${amount.toLocaleString()}`;
     }
-    return `$${amount.toFixed(2)}`;
+    const dollarAmount = (amount / 150).toFixed(2);
+    return `$${dollarAmount}`;
   };
 
   return (
