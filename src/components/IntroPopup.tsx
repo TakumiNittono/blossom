@@ -44,7 +44,7 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
     onClose();
     
     // Show toast notification
-    alert('10% discount code sent to your email!');
+    alert('Thank you for signing up!');
   };
 
   const handleNoThanks = () => {
@@ -70,11 +70,11 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
         </button>
 
         <h2 className="text-2xl md:text-3xl font-bold mb-4 uppercase tracking-wide">
-          Want a discount?
+          Join BLOSSOM
         </h2>
-        
+
         <p className="text-sm text-gray-600 mb-6">
-          Sign up and get 10% off your first order
+          Sign up to stay updated on new arrivals and exclusive releases
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -100,7 +100,7 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
               disabled={isSubmitting}
               className="flex-1 bg-black text-white py-3 px-6 uppercase text-sm tracking-wider hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50"
             >
-              {isSubmitting ? 'Sending...' : 'Send 10% off'}
+              {isSubmitting ? 'Sending...' : 'Sign Up'}
             </button>
             
             <button

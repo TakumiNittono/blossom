@@ -7,7 +7,7 @@ const Header: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount, openCart } = useApp();
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
 
