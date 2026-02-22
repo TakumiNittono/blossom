@@ -23,7 +23,7 @@ const HeroSection: FC = () => {
       {/* Hero Image */}
       <div className="absolute inset-0">
         <img
-          src="/IMG_0104.JPG"
+          src="/IMG_0106.JPG"
           alt="BLOSSOM Collection"
           className="w-full h-full object-cover"
         />
