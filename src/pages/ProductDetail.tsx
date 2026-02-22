@@ -12,6 +12,7 @@ const ProductDetail = () => {
   const { addToCart, openCart, setLoading } = useApp();
   const { language, t, formatPrice } = useLanguage();
   const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // ページマウント時にトップにスクロール（モバイル対応）
   useEffect(() => {
@@ -80,17 +81,39 @@ const ProductDetail = () => {
     <div className="min-h-screen">
       {/* Mobile: Vertical Layout */}
       <div className="md:hidden">
-        {/* Hero Image */}
+        {/* Main Image */}
         <div className="w-full aspect-square bg-gray-100 relative overflow-hidden">
           <img
-            src={product.images[0]}
-            srcSet={`${product.images[0]} 1x, ${product.images[0]} 2x`}
+            src={product.images[selectedImageIndex]}
+            srcSet={`${product.images[selectedImageIndex]} 1x, ${product.images[selectedImageIndex]} 2x`}
             sizes="100vw"
             alt={product.name}
             className="w-full h-full object-cover"
             loading="eager"
           />
         </div>
+
+        {/* Thumbnail Strip */}
+        {product.images.length > 1 && (
+          <div className="flex gap-2 px-4 mt-3">
+            {product.images.map((img, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedImageIndex(index)}
+                className={`w-16 h-16 flex-shrink-0 overflow-hidden border-2 brand-transition ${
+                  selectedImageIndex === index ? 'border-black' : 'border-transparent opacity-60'
+                }`}
+              >
+                <img
+                  src={img}
+                  alt={`${product.name} ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Product Info */}
         <div className="px-4 py-12">
@@ -170,18 +193,39 @@ const ProductDetail = () => {
       <div className="hidden md:block">
         <div className="max-w-7xl mx-auto px-8 py-16">
           <div className="grid grid-cols-2 gap-12 items-start">
-            {/* Left: Image */}
+            {/* Left: Image Gallery */}
             <div className="sticky top-24">
               <div className="w-full aspect-[4/5] bg-gray-100 relative overflow-hidden">
                 <img
-                  src={product.images[0]}
-                  srcSet={`${product.images[0]} 1x, ${product.images[0]} 2x`}
+                  src={product.images[selectedImageIndex]}
+                  srcSet={`${product.images[selectedImageIndex]} 1x, ${product.images[selectedImageIndex]} 2x`}
                   sizes="50vw"
                   alt={product.name}
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
               </div>
+              {/* Thumbnails */}
+              {product.images.length > 1 && (
+                <div className="flex gap-2 mt-3">
+                  {product.images.map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedImageIndex(index)}
+                      className={`w-20 h-20 flex-shrink-0 overflow-hidden border-2 brand-transition ${
+                        selectedImageIndex === index ? 'border-black' : 'border-transparent opacity-60 hover:opacity-80'
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`${product.name} ${index + 1}`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Right: Product Info */}

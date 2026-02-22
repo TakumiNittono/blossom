@@ -20,7 +20,7 @@ export const mockProducts: Product[] = [
     id: 'CODE:002',
     name: 'CODE001SET UP',
     price: 17800,
-    images: ['/IMG_0064.JPG', '/IMG_0064.JPG'],
+    images: ['/IMG_0104.JPG', '/IMG_0105.JPG', '/IMG_0106.JPG', '/IMG_0108.JPG'],
     category: 'ZIPS',
     sizes: [
       { size: 'M', available: true },
