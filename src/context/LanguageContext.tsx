@@ -102,13 +102,13 @@ const translations: Translations = {
     en: '+ VIEW ALL',
     ja: '+ すべて見る',
   },
-  'last.resort': {
-    en: 'LAST RESORT',
-    ja: 'ラストリゾート',
+  'hero.title': {
+    en: 'BLOSSOM',
+    ja: 'BLOSSOM',
   },
-  'last.resort.drop': {
-    en: 'LAST RESORT DROP - LIVE NOW',
-    ja: 'ラストリゾートドロップ - 今すぐ',
+  'hero.subtitle': {
+    en: 'NEW COLLECTION - LIVE NOW',
+    ja: '新コレクション - 発売中',
   },
   'shop.now': {
     en: 'SHOP NOW',

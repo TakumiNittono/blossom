@@ -1,8 +1,6 @@
 const Collections = () => {
   const collections = [
-    { name: 'LAST RESORT', description: '最新コレクション', image: '/IMG_8909.JPG' },
     { name: 'ESSENTIALS', description: 'ベーシックアイテム', image: '/IMG_8907.JPG' },
-    { name: 'PREMIUM', description: 'プレミアムコレクション', image: '/IMG_8910.JPG' },
   ];
 
   return (

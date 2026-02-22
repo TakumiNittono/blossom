@@ -22,9 +22,9 @@ const HeroSection: FC = () => {
     <section className="relative w-full h-[600px] md:h-[800px] bg-gray-900 overflow-hidden">
       {/* Hero Image */}
       <div className="absolute inset-0">
-        <img 
-          src="/IMG_8909.JPG" 
-          alt="LAST RESORT Collection" 
+        <img
+          src="/IMG_0104.JPG"
+          alt="BLOSSOM Collection"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black bg-opacity-30"></div>
@@ -35,8 +35,8 @@ const HeroSection: FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end">
           {/* Left Text */}
           <div className="text-white mb-8 md:mb-0">
-            <h2 className="text-5xl md:text-7xl font-bold mb-2">{t('last.resort')}</h2>
-            <p className="text-lg md:text-xl">{t('last.resort.drop')}</p>
+            <h2 className="text-5xl md:text-7xl font-bold mb-2">{t('hero.title')}</h2>
+            <p className="text-lg md:text-xl">{t('hero.subtitle')}</p>
           </div>
 
           {/* Right Button */}
