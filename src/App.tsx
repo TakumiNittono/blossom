@@ -49,14 +49,14 @@ const AppContent = () => {
         setShowIntroPopup(true);
       }, 300);
     } else {
-      // Go directly to shop
-      navigate('/shop');
+      // Go directly to home
+      navigate('/');
     }
   };
 
   const handleIntroPopupClose = () => {
     setShowIntroPopup(false);
-    navigate('/shop');
+    navigate('/');
   };
 
   return (
