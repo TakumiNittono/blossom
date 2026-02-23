@@ -36,7 +36,7 @@ export const mockProducts: Product[] = [
     price: 11000,
     images: ['/IMG_0105.JPG', '/IMG_0106.JPG'],
     category: 'ZIPS',
-    externalUrl: '', // Shopifyリンクを後で設定
+    externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-hoodie',
     sizes: [
       { size: 'M', available: true },
       { size: 'L', available: true },
