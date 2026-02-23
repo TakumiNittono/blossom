@@ -62,16 +62,16 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
         className="bg-white p-8 md:p-12 max-w-md w-full mx-4 relative animate-slideDown"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={handleNoThanks}
-          className="absolute top-4 right-4 text-2xl hover:opacity-70 transition-opacity"
-        >
-          ×
-        </button>
-
         <div className="bg-black text-white text-center py-2 text-xs tracking-widest uppercase mb-6 -mx-8 -mt-8 md:-mx-12 md:-mt-12">
           ¥15,000以上で送料無料 / FREE SHIPPING OVER ¥15,000
         </div>
+
+        <button
+          onClick={handleNoThanks}
+          className="absolute top-12 right-4 text-2xl hover:opacity-70 transition-opacity"
+        >
+          ×
+        </button>
 
         <h2 className="text-2xl md:text-3xl font-bold mb-4 uppercase tracking-wide">
           JOIN BLOSSOM
