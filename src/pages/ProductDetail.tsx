@@ -61,6 +61,10 @@ const ProductDetail = () => {
   }
 
   const handleAddToCart = () => {
+    if (product.externalUrl) {
+      window.open(product.externalUrl, '_blank');
+      return;
+    }
     if (!selectedSize) {
       alert(t('please.select.size'));
       return;

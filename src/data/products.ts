@@ -11,17 +11,45 @@ export interface Product {
   category: string;
   sizes: SizeVariant[];
   comingSoon?: boolean;
+  externalUrl?: string; // Shopifyリンク
 }
 
 const productImage = '/IMG_8907.JPG';
 
 export const mockProducts: Product[] = [
   {
-    id: 'CODE:002',
-    name: 'CODE001SET UP',
+    id: 'CODE:001-SETUP',
+    name: 'BLOSSOM CODE:001 SET UP',
     price: 17800,
-    images: ['/IMG_0104.JPG', '/IMG_0105.JPG', '/IMG_0106.JPG', '/IMG_0108.JPG'],
+    images: ['/IMG_0104.JPG', '/IMG_0106.JPG'],
     category: 'ZIPS',
+    externalUrl: '', // Shopifyリンクを後で設定
+    sizes: [
+      { size: 'M', available: true },
+      { size: 'L', available: true },
+      { size: 'XL', available: true },
+    ],
+  },
+  {
+    id: 'CODE:001-HOODIE',
+    name: 'BLOSSOM CODE:001 HOODIE',
+    price: 11000,
+    images: ['/IMG_0105.JPG', '/IMG_0106.JPG'],
+    category: 'ZIPS',
+    externalUrl: '', // Shopifyリンクを後で設定
+    sizes: [
+      { size: 'M', available: true },
+      { size: 'L', available: true },
+      { size: 'XL', available: true },
+    ],
+  },
+  {
+    id: 'CODE:001-PANTS',
+    name: 'BLOSSOM CODE:001 SWEAT PANTS',
+    price: 9000,
+    images: ['/IMG_0108.JPG'],
+    category: 'ZIPS',
+    externalUrl: '', // Shopifyリンクを後で設定
     sizes: [
       { size: 'M', available: true },
       { size: 'L', available: true },
