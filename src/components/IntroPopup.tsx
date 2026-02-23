@@ -69,6 +69,10 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
           ×
         </button>
 
+        <div className="bg-black text-white text-center py-2 text-xs tracking-widest uppercase mb-6 -mx-8 -mt-8 md:-mx-12 md:-mt-12">
+          ¥15,000以上で送料無料 / FREE SHIPPING OVER ¥15,000
+        </div>
+
         <h2 className="text-2xl md:text-3xl font-bold mb-4 uppercase tracking-wide">
           JOIN BLOSSOM
         </h2>
