@@ -49,7 +49,7 @@ export const mockProducts: Product[] = [
     price: 9000,
     images: ['/IMG_0108.JPG'],
     category: 'ZIPS',
-    externalUrl: '', // Shopifyリンクを後で設定
+    externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-sweat-pants',
     sizes: [
       { size: 'M', available: true },
       { size: 'L', available: true },
