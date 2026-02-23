@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -16,6 +16,24 @@ const Header: FC = () => {
       navigate('/');
     }
   };
+
+  const handleNewArrivals = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    if (location.pathname === '/') {
+      const section = document.getElementById('new-arrivals');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const section = document.getElementById('new-arrivals');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
+    }
+  }, [location.pathname, navigate]);
 
 return (
     <div className="fixed top-0 left-0 right-0 z-50">
@@ -78,7 +96,7 @@ return (
         <div className="border-t border-gray-200">
           <div className="w-full overflow-x-auto">
             <nav className="flex items-center space-x-4 md:space-x-6 py-3 px-4 sm:px-6 lg:px-8 text-xs md:text-sm min-w-max">
-              <Link to="/" className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide">{t('new.arrivals')}</Link>
+              <a href="/#new-arrivals" onClick={handleNewArrivals} className="whitespace-nowrap hover:text-gray-600 uppercase tracking-wide cursor-pointer">{t('new.arrivals')}</a>
             </nav>
           </div>
         </div>
