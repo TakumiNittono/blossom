@@ -13,7 +13,13 @@ const LandingGate: FC<LandingGateProps> = ({ onShopHere }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-white z-[9999] flex items-center justify-center">
+    <div className="fixed inset-0 bg-white z-[9999] flex flex-col">
+      {/* Free Shipping Banner */}
+      <div className="bg-black text-white text-center py-2 text-xs tracking-widest uppercase">
+        ¥15,000以上で送料無料 / FREE SHIPPING OVER ¥15,000
+      </div>
+
+      <div className="flex-1 flex items-center justify-center">
       <div className="text-center">
         {/* Logo with Icon */}
         <div className="mb-12 flex flex-col items-center">
@@ -36,6 +42,7 @@ const LandingGate: FC<LandingGateProps> = ({ onShopHere }) => {
         >
           {t('shop.here')}
         </button>
+      </div>
       </div>
     </div>
   );
