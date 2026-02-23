@@ -5,19 +5,7 @@ import { mockProducts } from '../data/products';
 
 const categories = [
   'VIEW ALL',
-  'HOODIES',
-  'ZIPS',
-  'PANTS',
-  'KNITWEAR',
-  'OUTERWEAR',
-  'LONGSLEEVE',
-  'TEES',
-  'SWEATPANTS',
-  'SHIRTS',
-  'POLOS',
-  'BEANIES',
-  'UNDERWEAR',
-  'CAPS'
+  ...Array.from(new Set(mockProducts.map(p => p.category))),
 ];
 
 const NewArrivals: FC = () => {

@@ -35,7 +35,7 @@ export const mockProducts: Product[] = [
     name: 'BLOSSOM CODE:001 HOODIE',
     price: 11000,
     images: ['/IMG_0105.JPG', '/IMG_0106.JPG'],
-    category: 'ZIPS',
+    category: 'HOODIES',
     externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-hoodie',
     sizes: [
       { size: 'M', available: true },
@@ -48,7 +48,7 @@ export const mockProducts: Product[] = [
     name: 'BLOSSOM CODE:001 SWEAT PANTS',
     price: 9000,
     images: ['/IMG_0108.JPG'],
-    category: 'ZIPS',
+    category: 'SWEATPANTS',
     externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-sweat-pants',
     sizes: [
       { size: 'M', available: true },
