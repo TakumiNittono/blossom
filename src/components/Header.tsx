@@ -20,8 +20,8 @@ const Header: FC = () => {
 return (
     <div className="fixed top-0 left-0 right-0 z-50">
       {/* Top Banner */}
-      <div className="bg-red-600 text-white text-center py-1 text-xs">
-        {t('taxes.duties.included')}
+      <div className="bg-black text-white text-center py-2 text-xs tracking-widest uppercase">
+        ¥15,000以上で送料無料 / FREE SHIPPING OVER ¥15,000
       </div>
 
       {/* Main Header */}
