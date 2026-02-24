@@ -58,8 +58,6 @@ return (
                 <Link to="/shop" className="hover:text-gray-600">{t('private.sales')}</Link>
                 <Link to="/collections" className="hover:text-gray-600">{t('collections')}</Link>
                 <Link to="/category/hoodies" className="hover:text-gray-600">{t('hoodies')}</Link>
-                <Link to="/stores" className="hover:text-gray-600">{t('stores')}</Link>
-                <Link to="/faqs" className="hover:text-gray-600">{t('faqs')}</Link>
               </nav>
             </div>
 
