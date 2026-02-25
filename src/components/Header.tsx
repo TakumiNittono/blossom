@@ -53,12 +53,6 @@ return (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </Link>
-              <nav className="hidden md:flex space-x-6 text-sm font-medium">
-                <Link to="/shop" className="hover:text-gray-600">{t('shop')}</Link>
-                <Link to="/shop" className="hover:text-gray-600">{t('private.sales')}</Link>
-                <Link to="/collections" className="hover:text-gray-600">{t('collections')}</Link>
-                <Link to="/category/hoodies" className="hover:text-gray-600">{t('hoodies')}</Link>
-              </nav>
             </div>
 
             {/* Center: Logo (absolutely centered) */}
