@@ -33,7 +33,10 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
   }, [isHovered, product.images.length]);
 
   const getLocalizedUrl = (url: string) => {
-    return url.replace('myshopify.com/', `myshopify.com/${language}/`);
+    if (language === 'en') {
+      return url.replace('myshopify.com/', 'myshopify.com/en/');
+    }
+    return url;
   };
 
   const handleClick = () => {

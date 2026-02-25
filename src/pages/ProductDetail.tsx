@@ -61,7 +61,10 @@ const ProductDetail = () => {
   }
 
   const getLocalizedUrl = (url: string) => {
-    return url.replace('myshopify.com/', `myshopify.com/${language}/`);
+    if (language === 'en') {
+      return url.replace('myshopify.com/', 'myshopify.com/en/');
+    }
+    return url;
   };
 
   const handleAddToCart = () => {
