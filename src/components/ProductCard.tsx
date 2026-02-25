@@ -12,7 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover, dimOthers = false }) => {
   const navigate = useNavigate();
-  const { formatPrice } = useLanguage();
+  const { language, formatPrice } = useLanguage();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -32,9 +32,13 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
     }
   }, [isHovered, product.images.length]);
 
+  const getLocalizedUrl = (url: string) => {
+    return url.replace('myshopify.com/', `myshopify.com/${language}/`);
+  };
+
   const handleClick = () => {
     if (product.externalUrl) {
-      window.open(product.externalUrl, '_blank');
+      window.open(getLocalizedUrl(product.externalUrl), '_blank');
       return;
     }
     // Save scroll position before navigation
