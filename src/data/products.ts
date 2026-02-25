@@ -11,7 +11,7 @@ export interface Product {
   category: string;
   sizes: SizeVariant[];
   comingSoon?: boolean;
-  externalUrl?: string; // Shopifyリンク
+  externalUrl?: { ja: string; en: string }; // Shopifyリンク
 }
 
 const productImage = '/IMG_8907.JPG';
@@ -23,7 +23,10 @@ export const mockProducts: Product[] = [
     price: 17800,
     images: ['/IMG_0104.JPG', '/IMG_0106.JPG'],
     category: 'ZIPS',
-    externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001',
+    externalUrl: {
+      ja: 'https://blossom-20221382.myshopify.com/products/blossom-code-001',
+      en: 'https://blossom-20221382.myshopify.com/en/products/blossom-code-001',
+    },
     sizes: [
       { size: 'M', available: true },
       { size: 'L', available: true },
@@ -36,7 +39,10 @@ export const mockProducts: Product[] = [
     price: 11000,
     images: ['/IMG_0105.JPG', '/IMG_0106.JPG'],
     category: 'HOODIES',
-    externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-hoodie',
+    externalUrl: {
+      ja: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-hoodie',
+      en: 'https://blossom-20221382.myshopify.com/en/products/blossom-code-001-hoodie',
+    },
     sizes: [
       { size: 'M', available: true },
       { size: 'L', available: true },
@@ -49,7 +55,10 @@ export const mockProducts: Product[] = [
     price: 9000,
     images: ['/IMG_0108.JPG'],
     category: 'SWEATPANTS',
-    externalUrl: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-sweat-pants',
+    externalUrl: {
+      ja: 'https://blossom-20221382.myshopify.com/products/blossom-code-001-sweat-pants',
+      en: 'https://blossom-20221382.myshopify.com/en/products/blossom-code-001-sweat-pants',
+    },
     sizes: [
       { size: 'M', available: true },
       { size: 'L', available: true },

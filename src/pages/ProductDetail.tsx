@@ -60,16 +60,9 @@ const ProductDetail = () => {
     );
   }
 
-  const getLocalizedUrl = (url: string) => {
-    if (language === 'en') {
-      return url.replace('myshopify.com/', 'myshopify.com/en/');
-    }
-    return url;
-  };
-
   const handleAddToCart = () => {
     if (product.externalUrl) {
-      window.open(getLocalizedUrl(product.externalUrl), '_blank');
+      window.open(product.externalUrl[language], '_blank');
       return;
     }
     if (!selectedSize) {

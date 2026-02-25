@@ -32,16 +32,9 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
     }
   }, [isHovered, product.images.length]);
 
-  const getLocalizedUrl = (url: string) => {
-    if (language === 'en') {
-      return url.replace('myshopify.com/', 'myshopify.com/en/');
-    }
-    return url;
-  };
-
   const handleClick = () => {
     if (product.externalUrl) {
-      window.open(getLocalizedUrl(product.externalUrl), '_blank');
+      window.open(product.externalUrl[language], '_blank');
       return;
     }
     // Save scroll position before navigation
