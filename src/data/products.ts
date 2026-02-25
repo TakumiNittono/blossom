@@ -21,7 +21,7 @@ export const mockProducts: Product[] = [
     id: 'CODE:001-SETUP',
     name: 'BLOSSOM CODE:001 SET UP',
     price: 17800,
-    images: ['/IMG_0104.JPG', '/IMG_0106.JPG'],
+    images: ['/IMG_0104.JPG', '/IMG_0200.JPG'],
     category: 'ZIPS',
     externalUrl: {
       ja: 'https://blossom-20221382.myshopify.com/products/blossom-code-001',
