@@ -17,6 +17,8 @@ import Wishlist from './pages/Wishlist';
 import Shop from './pages/Shop';
 import Collections from './pages/Collections';
 import Account from './pages/Account';
+import FAQs from './pages/FAQs';
+import Stores from './pages/Stores';
 
 const LanguageToggle = () => {
   const { language, setLanguage } = useLanguage();
@@ -77,6 +79,8 @@ const AppContent = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/collections" element={<Collections />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/stores" element={<Stores />} />
         </Routes>
       </PageTransition>
       

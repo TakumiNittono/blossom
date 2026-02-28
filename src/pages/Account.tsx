@@ -10,7 +10,7 @@ const Account = () => {
         <div className="border p-8">
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">{t('login')}</h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
               <div>
                 <label className="block text-sm font-medium mb-2">{t('email.address')}</label>
                 <input

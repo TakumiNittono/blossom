@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductGrid from '../components/ProductGrid';
 import { mockProducts } from '../data/products';
+import { useLanguage } from '../context/LanguageContext';
 
 const Search = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const [searchQuery, setSearchQuery] = useState(query);
   const [results, setResults] = useState(mockProducts);
+  const { language } = useLanguage();
 
   useEffect(() => {
     if (query) {
@@ -24,13 +26,15 @@ const Search = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+    setSearchParams(searchQuery ? { q: searchQuery } : {});
   };
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">検索</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-8">
+          {language === 'ja' ? '検索' : 'SEARCH'}
+        </h1>
 
         <form onSubmit={handleSearch} className="mb-8">
           <div className="flex gap-4">
@@ -38,21 +42,24 @@ const Search = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="商品名またはカテゴリで検索..."
+              placeholder={language === 'ja' ? '商品名またはカテゴリで検索...' : 'Search by product name or category...'}
               className="flex-1 border border-gray-300 px-4 py-2 focus:outline-none focus:border-black"
             />
             <button
               type="submit"
               className="bg-black text-white px-8 py-2 hover:bg-gray-800"
             >
-              検索
+              {language === 'ja' ? '検索' : 'SEARCH'}
             </button>
           </div>
         </form>
 
         {query && (
           <p className="mb-6 text-gray-600">
-            「{query}」の検索結果: {results.length}件
+            {language === 'ja'
+              ? `「${query}」の検索結果: ${results.length}件`
+              : `${results.length} result${results.length !== 1 ? 's' : ''} for "${query}"`
+            }
           </p>
         )}
 
@@ -60,7 +67,9 @@ const Search = () => {
           <ProductGrid products={results} />
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 uppercase tracking-wide">NO SEARCH RESULTS FOUND</p>
+            <p className="text-gray-500 uppercase tracking-wide">
+              {language === 'ja' ? '検索結果が見つかりません' : 'NO SEARCH RESULTS FOUND'}
+            </p>
           </div>
         )}
       </div>

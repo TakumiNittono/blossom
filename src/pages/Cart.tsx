@@ -38,7 +38,7 @@ const Cart = () => {
           <div className="md:col-span-2 space-y-4">
             {cart.map((item) => (
               <div
-                key={item.id}
+                key={`${item.id}-${item.selectedSize}`}
                 className="flex gap-4 border-b pb-4"
               >
                 <div
@@ -86,7 +86,7 @@ const Cart = () => {
                       </button>
                     </div>
                     <button
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item.id, item.selectedSize)}
                       className="text-red-600 hover:text-red-800 text-sm"
                     >
                       {t('remove')}
@@ -112,11 +112,11 @@ const Cart = () => {
                 </div>
                 <div className="flex justify-between">
                   <span>{t('shipping')}</span>
-                  <span>{formatAmount(10)}</span>
+                  <span>{total >= 15000 ? (language === 'ja' ? '無料' : 'FREE') : formatAmount(1500)}</span>
                 </div>
                 <div className="border-t pt-2 flex justify-between font-bold">
                   <span>{t('total')}</span>
-                  <span>{formatAmount(total + 10)}</span>
+                  <span>{formatAmount(total >= 15000 ? total : total + 1500)}</span>
                 </div>
               </div>
               <button
