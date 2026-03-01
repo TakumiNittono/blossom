@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react';
+import { FC } from 'react';
 
 interface IntroPopupProps {
   isOpen: boolean;
@@ -6,59 +6,15 @@ interface IntroPopupProps {
 }
 
 const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    const emailCaptured = localStorage.getItem('blossom_email_captured');
-    if (emailCaptured === 'true') {
-      onClose();
-    }
-  }, [onClose]);
-
   if (!isOpen) return null;
 
-  const validateEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-
-    if (!validateEmail(email)) {
-      setError('Please enter a valid email address');
-      return;
-    }
-
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    localStorage.setItem('blossom_email_captured', 'true');
-    localStorage.setItem('blossom_email', email);
-    
-    setIsSubmitting(false);
-    onClose();
-    
-    // Show toast notification
-    alert('ご登録ありがとうございます！');
-  };
-
-  const handleNoThanks = () => {
-    localStorage.setItem('blossom_visited', 'true');
-    onClose();
-  };
-
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[10000] flex items-center justify-center animate-fadeIn"
       style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', backdropFilter: 'blur(4px)' }}
-      onClick={handleNoThanks}
+      onClick={onClose}
     >
-      <div 
+      <div
         className="bg-white p-8 md:p-12 max-w-md w-full mx-4 relative animate-slideDown"
         onClick={(e) => e.stopPropagation()}
       >
@@ -67,55 +23,26 @@ const IntroPopup: FC<IntroPopupProps> = ({ isOpen, onClose }) => {
         </div>
 
         <button
-          onClick={handleNoThanks}
+          onClick={onClose}
           className="absolute top-12 right-4 text-2xl hover:opacity-70 transition-opacity"
         >
           ×
         </button>
 
         <h2 className="text-2xl md:text-3xl font-bold mb-4 uppercase tracking-wide">
-          JOIN BLOSSOM
+          WELCOME TO BLOSSOM
         </h2>
 
         <p className="text-sm text-gray-600 mb-6">
-          新着商品や限定リリースの最新情報をお届けします
+          新着商品や限定リリースの最新情報をチェック
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setError('');
-            }}
-            placeholder="メールアドレスを入力"
-            className="w-full border-b-2 border-black px-2 py-3 focus:outline-none focus:border-gray-400 transition-colors duration-200"
-            required
-          />
-
-          {error && (
-            <p className="text-red-600 text-sm">有効なメールアドレスを入力してください</p>
-          )}
-
-          <div className="flex gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1 bg-black text-white py-3 px-6 uppercase text-sm tracking-wider hover:bg-gray-800 transition-colors duration-200 disabled:opacity-50"
-            >
-              {isSubmitting ? '送信中...' : '登録する'}
-            </button>
-
-            <button
-              type="button"
-              onClick={handleNoThanks}
-              className="flex-1 border-2 border-black py-3 px-6 uppercase text-sm tracking-wider hover:bg-gray-50 transition-colors duration-200"
-            >
-              スキップ
-            </button>
-          </div>
-        </form>
+        <button
+          onClick={onClose}
+          className="w-full bg-black text-white py-3 px-6 uppercase text-sm tracking-wider hover:bg-gray-800 transition-colors duration-200"
+        >
+          ENTER
+        </button>
       </div>
     </div>
   );

@@ -42,16 +42,9 @@ const AppContent = () => {
 
   const handleLandingGateShopHere = () => {
     setShowLandingGate(false);
-    const emailCaptured = localStorage.getItem('blossom_email_captured');
-    if (!emailCaptured) {
-      // Show intro popup first
-      setTimeout(() => {
-        setShowIntroPopup(true);
-      }, 300);
-    } else {
-      // Go directly to home
-      navigate('/');
-    }
+    setTimeout(() => {
+      setShowIntroPopup(true);
+    }, 300);
   };
 
   const handleIntroPopupClose = () => {
