@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider, useApp } from './context/AppContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import LandingGate from './components/LandingGate';
-import IntroPopup from './components/IntroPopup';
 import GlobalLoader from './components/GlobalLoader';
 import CartDrawer from './components/CartDrawer';
 import PageTransition from './components/PageTransition';
@@ -36,26 +35,15 @@ const LanguageToggle = () => {
 
 const AppContent = () => {
   const { isLoading } = useApp();
-  const [showIntroPopup, setShowIntroPopup] = useState(false);
   const [showLandingGate, setShowLandingGate] = useState(true);
-  const navigate = useNavigate();
 
   const handleLandingGateShopHere = () => {
     setShowLandingGate(false);
-    setTimeout(() => {
-      setShowIntroPopup(true);
-    }, 300);
-  };
-
-  const handleIntroPopupClose = () => {
-    setShowIntroPopup(false);
-    navigate('/');
   };
 
   return (
     <div className="min-h-screen bg-white">
       {showLandingGate && <LandingGate onShopHere={handleLandingGateShopHere} />}
-      <IntroPopup isOpen={showIntroPopup} onClose={handleIntroPopupClose} />
       <GlobalLoader isLoading={isLoading} />
       <CartDrawer />
       
