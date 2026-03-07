@@ -47,12 +47,10 @@ const Footer = () => {
             {language === 'ja' ? 'お問い合わせ' : 'CONTACT'}
           </h3>
           <a
-            href="https://blossom-20221382.myshopify.com/ja-jp/policies/contact-information"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:info.blossom.jp.shop@gmail.com"
             className="text-xs text-gray-400 hover:text-white tracking-wide brand-transition"
           >
-            {language === 'ja' ? '連絡先情報' : 'Contact Information'}
+            info.blossom.jp.shop@gmail.com
           </a>
         </div>
 
