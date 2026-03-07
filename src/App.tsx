@@ -18,6 +18,7 @@ import Collections from './pages/Collections';
 import Account from './pages/Account';
 import FAQs from './pages/FAQs';
 import Stores from './pages/Stores';
+import Footer from './components/Footer';
 
 const LanguageToggle = () => {
   const { language, setLanguage } = useLanguage();
@@ -64,7 +65,9 @@ const AppContent = () => {
           <Route path="/stores" element={<Stores />} />
         </Routes>
       </PageTransition>
-      
+
+      <Footer />
+
       {/* Language Toggle */}
       <LanguageToggle />
     </div>
