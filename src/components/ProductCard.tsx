@@ -88,7 +88,7 @@ const ProductCard: FC<ProductCardProps> = ({ product, isHovered = false, onHover
       {/* Product Info */}
       <div className="text-sm">
         <h3 className="font-medium mb-1 tracking-wide">{product.name}</h3>
-        <p className="font-semibold">{formatPrice(product.price)}</p>
+        {!product.comingSoon && <p className="font-semibold">{formatPrice(product.price)}</p>}
       </div>
     </div>
   );

@@ -124,7 +124,7 @@ const ProductDetail = () => {
           <h1 className="text-2xl font-bold mb-2 tracking-tight uppercase">
             {product.name}
           </h1>
-          <p className="text-xl font-semibold mb-8">{formatPrice(product.price)}</p>
+          {!product.comingSoon && <p className="text-xl font-semibold mb-8">{formatPrice(product.price)}</p>}
 
           {/* Size Selector */}
           <div className="mb-8">
@@ -237,7 +237,7 @@ const ProductDetail = () => {
               <h1 className="text-3xl font-bold mb-2 tracking-tight uppercase">
                 {product.name}
               </h1>
-              <p className="text-2xl font-semibold mb-8">{formatPrice(product.price)}</p>
+              {!product.comingSoon && <p className="text-2xl font-semibold mb-8">{formatPrice(product.price)}</p>}
 
               {/* Size Selector */}
               <div className="mb-8">
