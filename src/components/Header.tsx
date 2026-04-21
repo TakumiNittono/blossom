@@ -1,13 +1,37 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useLanguage } from '../context/LanguageContext';
+
+const SALE_START = new Date('2026-04-21T20:30:00+09:00').getTime();
+const SALE_END = new Date('2026-04-22T20:30:00+09:00').getTime();
 
 const Header: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount, openCart } = useApp();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [countdown, setCountdown] = useState<string | null>(null);
+
+  useEffect(() => {
+    const update = () => {
+      const now = Date.now();
+      if (now < SALE_START || now >= SALE_END) {
+        setCountdown(null);
+        return;
+      }
+      const diff = SALE_END - now;
+      const hours = Math.floor(diff / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      setCountdown(
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`,
+      );
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogoClick = () => {
     if (location.pathname === '/') {
@@ -41,6 +65,14 @@ return (
       <div className="bg-black text-white text-center py-2 text-xs tracking-widest uppercase">
         ¥15,000以上で送料無料 / FREE SHIPPING OVER ¥15,000
       </div>
+
+      {countdown && (
+        <div className="bg-white text-black text-center py-2 text-xs tracking-widest uppercase border-b border-gray-200">
+          {language === 'ja'
+            ? `セール終了まで ${countdown}`
+            : `SALE ENDS IN ${countdown}`}
+        </div>
+      )}
 
       {/* Main Header */}
       <header className="bg-white border-b border-gray-200">
