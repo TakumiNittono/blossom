@@ -10,7 +10,7 @@ const Header: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount, openCart } = useApp();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [countdown, setCountdown] = useState<string | null>(null);
 
   useEffect(() => {
@@ -68,9 +68,7 @@ return (
 
       {countdown && (
         <div className="bg-white text-black text-center py-2 text-xs tracking-widest uppercase border-b border-gray-200">
-          {language === 'ja'
-            ? `セール終了まで ${countdown}`
-            : `SALE ENDS IN ${countdown}`}
+          {countdown}
         </div>
       )}
 
