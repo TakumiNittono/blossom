@@ -10,7 +10,7 @@ const Header: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { cartCount, openCart } = useApp();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [countdown, setCountdown] = useState<string | null>(null);
 
   useEffect(() => {
@@ -68,7 +68,9 @@ return (
 
       {countdown && (
         <div className="bg-white text-black text-center py-2 text-xs tracking-widest uppercase border-b border-gray-200">
-          {countdown}
+          {language === 'ja'
+            ? `¥15,000以上ご購入の方限定 ${countdown}`
+            : `¥15,000+ PURCHASE EXCLUSIVE ${countdown}`}
         </div>
       )}
 
