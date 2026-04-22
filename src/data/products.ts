@@ -18,22 +18,6 @@ const productImage = '/IMG_8907.JPG';
 
 export const mockProducts: Product[] = [
   {
-    id: 'CODE:001-SETUP',
-    name: 'BLOSSOM CODE:001 SET UP',
-    price: 17800,
-    images: ['/IMG_0104.JPG', '/IMG_0200.JPG'],
-    category: 'ZIPS',
-    externalUrl: {
-      ja: 'https://blossom-20221382.myshopify.com/products/blossom-code-001',
-      en: 'https://blossom-20221382.myshopify.com/en/products/blossom-code-001',
-    },
-    sizes: [
-      { size: 'M', available: true },
-      { size: 'L', available: true },
-      { size: 'XL', available: true },
-    ],
-  },
-  {
     id: 'CODE:001-HOODIE',
     name: 'BLOSSOM CODE:001 HOODIE',
     price: 11000,
